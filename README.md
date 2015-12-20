@@ -1,3 +1,9 @@
+# TeaAtHomeHTN
+
+HTN planner "Pyhop" with a simple example "making tea at home" for the planning and scheduling course
+
+---
+
 # Pyhop, version 1.2.2
 ## A simple HTN planning system written in Python
 
