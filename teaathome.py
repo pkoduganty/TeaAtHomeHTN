@@ -24,10 +24,10 @@ class RobotArm(Enum):
     
 class Location(Enum):
 	kettlebase = 0
-	countertop = 1
+	shelf = 1
 	startlocation = 2
 	kitchensink = 3
-	nexttokettlebase = 4
+	countertop = 4
 	robotarm = 5
 	inteacup = 6
     
@@ -138,7 +138,7 @@ def place(state, robot, item, location):
 def placein(state, robot, targetitem, robotitem):
 	if state.loc[robot] == state.loc[targetitem]:
 		if state.robotarm[robot] == RobotArm[robotitem]:
-			state.loc[robotitem] = Location.nexttokettlebase
+			state.loc[robotitem] = Location.countertop
 			state.robotarm[robot] = RobotArm.free
 			return state
 		else: return False
@@ -219,15 +219,15 @@ def makehotwater(state, robot):
 pyhop.declare_methods('layer2.1', preparekettle, makehotwater)
 
 def checkcupdirty(state, robot):
-	return [('goto', robot, Location.countertop), ('access', robot, 'teacup'), ('grasp', robot, 'teacup'), ('check', 'teacup', 'cleanstate', Itemstate.clean)]
+	return [('goto', robot, Location.shelf), ('access', robot, 'teacup'), ('grasp', robot, 'teacup'), ('check', 'teacup', 'cleanstate', Itemstate.clean)]
 def placecup(state, robot):
-	return [('goto', robot, Location.nexttokettlebase), ('place', robot, 'teacup', Location.nexttokettlebase)]
+	return [('goto', robot, Location.countertop), ('place', robot, 'teacup', Location.countertop)]
 pyhop.declare_methods('layer2.2', checkcupdirty, placecup)
 
 def getteabag(state, robot, teabag):
-	return [('goto', robot, Location.countertop), ('access', robot, 'teabag'), ('grasp', robot, 'teabag')]
+	return [('goto', robot, Location.shelf), ('access', robot, 'teabag'), ('grasp', robot, 'teabag')]
 def placebagincup(state, robot, teabag):# TODO remove teabag
-	return[('goto', robot, Location.nexttokettlebase), ('access', robot, 'teacup'), ('placein', robot, 'teacup')]
+	return[('goto', robot, Location.countertop), ('access', robot, 'teacup'), ('placein', robot, 'teacup')]
 pyhop.declare_methods('layer2.3', getteabag, placebagincup)
 
 def checkkettlefill(state, robot):
@@ -251,13 +251,13 @@ pyhop.print_methods()
 print('')
 
 state1 = pyhop.State('state1')
-state1.loc = {'robot':Location.startlocation, 'kettle':Location.kettlebase, 'teacup':Location.countertop, 'teabag':Location.countertop}
+state1.loc = {'robot':Location.startlocation, 'kettle':Location.kettlebase, 'teacup':Location.shelf, 'teabag':Location.shelf}
 state1.accessible = {'kettle':Accessible.yes, 'kettlebase':Accessible.yes, 'coldtap':Accessible.yes, 'teacup':Accessible.yes, 'teabag':Accessible.yes}
 state1.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'teacup':{'cleanstate':Itemstate.clean, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'coldtap':{'openstate':Itemstate.closed}}
 state1.robotarm = {'robot':RobotArm.free}
 
 goal1 = pyhop.Goal('goal1')
-goal1.loc = {'robot':Location.startlocation, 'kettle':Location.kettlebase, 'teacup':Location.nexttokettlebase, 'teabag':Location.inteacup}
+goal1.loc = {'robot':Location.startlocation, 'kettle':Location.kettlebase, 'teacup':Location.countertop, 'teabag':Location.inteacup}
 goal1.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate': Itemstate.empty}, 'coldtap':{'openstate':Itemstate.closed}, 'teacup':{'fillstate':Itemstate.full, 'tempstate':Itemstate.hot}}
 goal1.robotarm = {'robot':RobotArm.free}
 pyhop.print_goal(goal1)
