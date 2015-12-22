@@ -1,13 +1,26 @@
-# TeaAtHomeHTN
+TeaAtHomeHTN
+============
 
-HTN planner "Pyhop" with a simple example "making tea at home" for the planning and scheduling course
+Status: Work in progress
+
+### Introduction
+HTN planner "Pyhop" with a simple example "making tea at home" for the planning and scheduling course. Developed in Python version 2.7.
+
+
+### Dependencies
+Python 3.4 enum backport
+https://pypi.python.org/pypi/enum34
+
+### Running TeaAtHome
+From Python console:
+
+    execfile('teaathome.py')
 
 ---
 
-# Pyhop, version 1.2.2
-## A simple HTN planning system written in Python
+### Pyhop, version 1.2.2
 
-----
+A simple HTN planning system written in Python
 
 Copyright 2013 Dana S. Nau - <http://www.cs.umd.edu/~nau>
 
