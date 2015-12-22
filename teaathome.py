@@ -201,7 +201,9 @@ def maketea(state, robot, teabag):
 pyhop.declare_methods('layer0', maketea)
 
 def preparehotwater(state, robot):
-	return [('layer2.1', robot)]
+	if (state.itemstate['kettle']['tempstate'] == Itemstate.hot]):
+		return []
+	else: return [('layer2.1', robot)]
 def getcleancup(state, robot):
 	return [('layer2.2', robot)]
 pyhop.declare_methods('layer1.1', preparehotwater, getcleancup)
