@@ -135,25 +135,11 @@ def place(state, robot, item, location):
 	@param: robot robot
 	@param: targetitem targetitem
 	@param: robotitem item the robot is holding"""
-def placebagincup(state, robot, targetitem, robotitem):
+def placein(state, robot, targetitem, robotitem):
 	if state.loc[robot] == state.loc[targetitem]:
 		if state.robotarm[robot] == RobotArm[robotitem]:
 			state.loc[robotitem] = Location.nexttokettlebase
 			state.robotarm[robot] = RobotArm.free
-			return state
-		else: return False
-	else: return False
-	
-"""@brief: Operator to position an item
-	@param: state current state
-	@param: a robot
-	@param: x item to position
-	@param: y location to position on"""
-def position(state, a, x, y):
-	if state.loc[a] == y:
-		if state.loc[x] == a:
-			state.loc[x] = y
-			state.robotarm[a] = Robotarm.free
 			return state
 		else: return False
 	else: return False
@@ -203,7 +189,7 @@ def turnonkettlebase(state, robot, item):
 		else: return False
 	else: return False
 
-pyhop.declare_operators(goto, open, grasp, position, place, close, check, weigh, placenextto, placein, turnonkettlebase, access)
+pyhop.declare_operators(goto, open, grasp, place, close, check, weigh, placein, turnonkettlebase, access)
 print('')
 pyhop.print_operators()
 print('')
@@ -247,7 +233,7 @@ pyhop.declare_methods('layer2.3', getteabag, placebagincup)
 def checkkettlefill(state, robot):
 	return [('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('check', 'kettle', 'openstate', Itemstate.closed), ('grasp', robot, 'kettle'), ('weigh', robot, 'kettle', Itemstate.empty), ('place', robot, 'kettle', Location.kettlebase)]
 def placekettleinsink(state, robot):
-	return [('goto', robot, Location.kitchensink), ('position', robot, 'kettle', Location.kitchensink)]
+	return [('goto', robot, Location.kitchensink), ('place', robot, 'kettle', Location.kitchensink)]
 def fillkettle(state, robot):
 	return [('open', robot, 'kettle'), ('open', robot, 'coldtap'), ('fill', robot, 'kettle'), ('close', robot, 'coldtap'), ('close', robot, 'kettle')]
 def bringkettletobase(state, robot):
