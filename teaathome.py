@@ -204,7 +204,7 @@ def turnonkettlebase(state, robot, item):
 		else: return False
 	else: return False
 
-pyhop.declare_operators(goto, open, grasp, position, replace, close, placenextto, placein, turnonkettlebase)
+pyhop.declare_operators(goto, open, grasp, position, place, close, placenextto, placein, turnonkettlebase, access)
 print('')
 pyhop.print_operators()
 print('')
@@ -214,17 +214,17 @@ def maketea(state, robot, teabag):
 pyhop.declare_methods('layer0', maketea)
 
 def preparehotwater(state, robot):
-    return [('layer2.1', robot)]
+	return [('layer2.1', robot)]
 def getcleancup(state, robot):
-    return [('layer2.2', robot)]
+	return [('layer2.2', robot)]
 pyhop.declare_methods('layer1.1', preparehotwater, getcleancup)
 
 def brewtea(state, robot, teabag):
-    return [('layer2.3', robot, teabag)]
+	return [('layer2.3', robot, teabag)]
 pyhop.declare_methods('layer1.2', brewtea)
 
 def finalizetea(state, robot):
-    return[('access', robot, 'kettle'), ('open', robot, 'kettle'), ('grasp', robot, 'kettle'), ('pourintocup', robot, 'teacup'), ('replace', robot, 'kettle')]
+	return[('access', robot, 'kettle'), ('open', robot, 'kettle'), ('grasp', robot, 'kettle'), ('pourintocup', robot, 'teacup'), ('replace', robot, 'kettle')]
 pyhop.declare_methods('layer1.3', finalizetea)
 
 def preparekettle(state, robot):
@@ -234,31 +234,32 @@ def makehotwater(state, robot):
 pyhop.declare_methods('layer2.1', preparekettle, makehotwater)
 
 def checkcupdirty(state, robot):
-    return [('goto', robot, Location.countertop), ('access', robot, 'teacup'), ('grasp', robot, 'teacup'), ('check', 'teacup', 'cleanstate', Itemstate.clean)]
+	return [('goto', robot, Location.countertop), ('access', robot, 'teacup'), ('grasp', robot, 'teacup'), ('check', 'teacup', 'cleanstate', Itemstate.clean)]
 def placecup(state, robot):
-    return [('goto', robot, Location.nexttokettlebase), ('place', robot, 'teacup', Location.nexttokettlebase)]
+	return [('goto', robot, Location.nexttokettlebase), ('place', robot, 'teacup', Location.nexttokettlebase)]
 pyhop.declare_methods('layer2.2', checkcupdirty, placecup)
 
 def getteabag(state, robot, teabag):
-    return [('goto', robot, Location.countertop), ('access', robot, 'teabag'), ('grasp', robot, 'teabag')]
+	return [('goto', robot, Location.countertop), ('access', robot, 'teabag'), ('grasp', robot, 'teabag')]
 def placebagincup(state, robot):
-    return[('goto', robot, Location.nexttokettlebase), ('access', robot, 'teacup'), ('placein', robot, 'teacup')]
+	return[('goto', robot, Location.nexttokettlebase), ('access', robot, 'teacup'), ('placein', robot, 'teacup')]
 pyhop.declare_methods('layer2.3', getteabag, placebagincup)
 
 def checkkettlefill(state, robot):
-    return [('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('check', 'kettle', 'openstate', Itemstate.closed), ('grasp', robot, 'kettle'), ('weigh', robot, 'kettle', Itemstate.empty)]
+	print "test"
+	return [('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('check', 'kettle', 'openstate', Itemstate.closed), ('grasp', robot, 'kettle'), ('weigh', robot, 'kettle', Itemstate.empty)]
 def placekettleinsink(state, robot):
-    return [('goto', robot, Location.kitchensink), ('access', robot, 'kitchensink'), ('position', robot, 'kettle', Location.kitchensink)]
+	return [('goto', robot, Location.kitchensink), ('position', robot, 'kettle', Location.kitchensink)]
 def fillkettle(state, robot):
-    return [('open', robot, 'kettle'), ('open', robot, 'coldtap'), ('fill', robot, 'kettle'), ('close', robot, 'coldtap'), ('close', robot, 'kettle')]
+	return [('open', robot, 'kettle'), ('open', robot, 'coldtap'), ('fill', robot, 'kettle'), ('close', robot, 'coldtap'), ('close', robot, 'kettle')]
 def bringkettletobase(state, robot):
-    return [('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.kettlebase)]
+	return [('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.kettlebase)]
 def placekettleonbase(state, robot):
-    return [('access', robot, 'kettlebase'), ('replace', robot, 'kettle', Location.kettlebase)]
+	return [('place', robot, 'kettle', Location.kettlebase)]
 pyhop.declare_methods('layer3.1', checkkettlefill, placekettleinsink, fillkettle, bringkettletobase, placekettleonbase)
 
 def boilwater(state, robot):
-	return [('access', robot, 'kettlebase'), ('turnonkettlebase', robot, 'kettle')]
+	return [ ('turnonkettlebase', robot, 'kettle')]
 pyhop.declare_methods('layer3.2', boilwater)
 
 print('')
