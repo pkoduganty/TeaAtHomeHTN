@@ -109,7 +109,7 @@ def weigh(state, robot, item, expectedvalue):
 	@param: item item to grasp"""
 def grasp(state, robot, item):
 	if state.loc[robot] == state.loc[item]:
-		if state.robotarm == RobotArm.free:
+		if state.robotarm[robot] == RobotArm.free:
 			state.robotarm[robot] = RobotArm[item]
 			state.loc[item] = Location.robotarm
 			return state
@@ -128,7 +128,21 @@ def place(state, robot, item, location):
 			state.robotarm[robot] = RobotArm.free
 			return state
 		else: return False
-	else: return False	
+	else: return False
+
+"""@brief: Place teabag from robot arm into a teacup
+	@param: state current state
+	@param: robot robot
+	@param: targetitem targetitem
+	@param: robotitem item the robot is holding"""
+def placebagincup(state, robot, targetitem, robotitem):
+	if state.loc[robot] == state.loc[targetitem]:
+		if state.robotarm[robot] == RobotArm[robotitem]:
+			state.loc[robotitem] = Location.nexttokettlebase
+			state.robotarm[robot] = RobotArm.free
+			return state
+		else: return False
+	else: return False
 	
 """@brief: Operator to position an item
 	@param: state current state
@@ -173,21 +187,6 @@ def placenextto(state, a, x, y):
 		else: return False
 	else: return False
 
-"""@brief: Operator to place item in another item
-	@param: state current state
-	@param: a robot
-	@param: x item to be placed
-	@param: y item in which other item will be placed"""
-def placein(state, a, x, y):
-	if state.loc[a] == state.loc[y]:
-		if state.accessible[y] == Accessible.yes:
-			if state.loc[x] == a:
-				state.loc[x] = y
-				return state
-			else: return False
-		else: return False
-	else: return False
-
 """@brief: Operator to boil water
 	@param: state current state
 	@param: robot robot
@@ -204,7 +203,7 @@ def turnonkettlebase(state, robot, item):
 		else: return False
 	else: return False
 
-pyhop.declare_operators(goto, open, grasp, position, place, close, placenextto, placein, turnonkettlebase, access)
+pyhop.declare_operators(goto, open, grasp, position, place, close, check, weigh, placenextto, placein, turnonkettlebase, access)
 print('')
 pyhop.print_operators()
 print('')
@@ -241,13 +240,12 @@ pyhop.declare_methods('layer2.2', checkcupdirty, placecup)
 
 def getteabag(state, robot, teabag):
 	return [('goto', robot, Location.countertop), ('access', robot, 'teabag'), ('grasp', robot, 'teabag')]
-def placebagincup(state, robot):
+def placebagincup(state, robot, teabag):# TODO remove teabag
 	return[('goto', robot, Location.nexttokettlebase), ('access', robot, 'teacup'), ('placein', robot, 'teacup')]
 pyhop.declare_methods('layer2.3', getteabag, placebagincup)
 
 def checkkettlefill(state, robot):
-	print "test"
-	return [('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('check', 'kettle', 'openstate', Itemstate.closed), ('grasp', robot, 'kettle'), ('weigh', robot, 'kettle', Itemstate.empty)]
+	return [('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('check', 'kettle', 'openstate', Itemstate.closed), ('grasp', robot, 'kettle'), ('weigh', robot, 'kettle', Itemstate.empty), ('place', robot, 'kettle', Location.kettlebase)]
 def placekettleinsink(state, robot):
 	return [('goto', robot, Location.kitchensink), ('position', robot, 'kettle', Location.kitchensink)]
 def fillkettle(state, robot):
