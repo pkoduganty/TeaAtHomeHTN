@@ -138,9 +138,11 @@ def place(state, robot, item, location):
 def placein(state, robot, targetitem, robotitem):
 	if state.loc[robot] == state.loc[targetitem]:
 		if state.robotarm[robot] == RobotArm[robotitem]:
-			state.loc[robotitem] = Location.countertop
-			state.robotarm[robot] = RobotArm.free
-			return state
+			if state.loc[targetitem] == Locations.countertop:
+				state.loc[robotitem] = Location[targetitem].loc
+				state.robotarm[robot] = RobotArm.free
+				return state
+			else: return False
 		else: return False
 	else: return False
 
@@ -149,7 +151,7 @@ def placein(state, robot, targetitem, robotitem):
 	@param: robot robot
 	@param: x item to place
 	@param: y item on which other item will be placed"""
-def replace(state, a, x, y):
+"""def replace(state, a, x, y):
 	if state.loc[a] == state.loc[y]:
 		if state.loc[x] == a:
 			if state.accessible[y] == Accessible.yes:
@@ -158,20 +160,20 @@ def replace(state, a, x, y):
 				return state
 			else: return False
 		else: return False
-	else: return False
+	else: return False"""
 
 """@brief: Operator to place an item next to another
 	@param: state current state
 	@param: a robot
 	@param: x item to place
 	@param: y item to place next to"""
-def placenextto(state, a, x, y):
+"""def placenextto(state, a, x, y):
 	if state.loc[a] == state.loc[y]:
 		if state.loc[x] == a:
 			state.loc[x] = state.loc[y]
 			state.robotarm[a] = Robotarm.free
 		else: return False
-	else: return False
+	else: return False"""
 
 """@brief: Operator to boil water
 	@param: state current state
