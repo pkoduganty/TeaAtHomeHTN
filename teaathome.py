@@ -147,35 +147,6 @@ def placein(state, robot, targetitem, robotitem):
 		else: return False
 	else: return False
 
-"""@brief: Operator to place an item on corresponding item
-	@param: state current state
-	@param: robot robot
-	@param: x item to place
-	@param: y item on which other item will be placed"""
-"""def replace(state, a, x, y):
-	if state.loc[a] == state.loc[y]:
-		if state.loc[x] == a:
-			if state.accessible[y] == Accessible.yes:
-				state.loc[x] = y
-				state.robotarm = Robotarm.free
-				return state
-			else: return False
-		else: return False
-	else: return False"""
-
-"""@brief: Operator to place an item next to another
-	@param: state current state
-	@param: a robot
-	@param: x item to place
-	@param: y item to place next to"""
-"""def placenextto(state, a, x, y):
-	if state.loc[a] == state.loc[y]:
-		if state.loc[x] == a:
-			state.loc[x] = state.loc[y]
-			state.robotarm[a] = Robotarm.free
-		else: return False
-	else: return False"""
-
 """@brief: Operator to boil water
 	@param: state current state
 	@param: robot robot
@@ -206,13 +177,13 @@ def opencoldtap(state, robot):
 	else: return False
 
 def pourintocup(state, robot, teacup):
-	if state.loc[robot] == state.loc['teacup']:
+	if state.loc[robot] == state.loc[teacup]:
 		if state.robotarm[robot] == RobotArm.kettle:
 			if state.itemstate['kettle']['openstate'] == Itemstate.open:
 				if state.itemstate['kettle']['tempstate'] == Itemstate.hot:
 					if state.itemstate['kettle']['fillstate'] == Itemstate.full:
-						state.itemstate['teacup']['fillstate'] = Itemstate.full
-						state.itemstate['teacup']['tempstate'] = Itemstate.hot
+						state.itemstate[teacup]['fillstate'] = Itemstate.full
+						state.itemstate[teacup]['tempstate'] = Itemstate.hot
 						state.itemstate['kettle']['fillstate'] = Itemstate.empty
 						state.itemstate['kettle']['tempstate'] = Itemstate.cold
 						return state
