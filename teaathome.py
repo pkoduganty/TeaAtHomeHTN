@@ -4,6 +4,7 @@ Tea@home - Code for
 
 from enum import Enum
 import pyhop
+reload(pyhop)
 
 class Itemstate(Enum):
 	closed = 0
@@ -191,7 +192,19 @@ def turnonkettlebase(state, robot, item):
 		else: return False
 	else: return False
 
-pyhop.declare_operators(goto, open, grasp, place, close, check, weigh, placein, turnonkettlebase, access)
+def opencoldtap(state, robot):
+	if state.loc[robot] == state.loc['coldtap']:
+		if state.robotarm[robot] == RobotArm.free:
+			if state.itemstate['coldtap']['openstate'] == Itemstate.closed:
+				state.itemstate['coldtap']['openstate'] = Itemstate.open
+				if state.itemstate['kettle']['openstate'] == Itemstate.open:
+					state.itemstate['kettle']['fillstate'] == Itemstate.full
+				return state
+			else: return False
+		else: return False
+	else: return False
+
+pyhop.declare_operators(goto, open, grasp, place, close, check, weigh, placein, turnonkettlebase, access, opencoldtap)
 print('')
 pyhop.print_operators()
 print('')
@@ -213,11 +226,11 @@ def checkkettlefill(state, robot):
 pyhop.declare_methods('taskcheckkettlefill', checkkettlefill)
 
 def placekettleinsink(state, robot):
-	return [('goto', robot, Location.kitchensink), ('place', robot, 'kettle', Location.kitchensink)]
+	return [('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.kitchensink), ('place', robot, 'kettle', Location.kitchensink)]
 pyhop.declare_methods('tasplacekettleinsink', placekettleinsink)
 
 def fillkettle(state, robot):
-	return [('open', robot, 'kettle'), ('open', robot, 'coldtap'), ('fill', robot, 'kettle'), ('close', robot, 'coldtap'), ('close', robot, 'kettle')]
+	return [('open', robot, 'kettle'), ('opencoldtap', robot), ('close', robot, 'coldtap'), ('close', robot, 'kettle')]
 pyhop.declare_methods('taskfillkettle', fillkettle)
 
 def placekettleonbase(state, robot):
@@ -243,12 +256,12 @@ def checkcupdirty(state, robot):
 pyhop.declare_methods('taskcheckcupdirty', checkcupdirty)
 
 def placecup(state, robot):
-	return [, ('goto', robot, Location.countertop), ('place', robot, 'teacup', Location.countertop)]
+	return [('goto', robot, Location.countertop), ('place', robot, 'teacup', Location.countertop)]
 pyhop.declare_methods('taskplacecup', placecup)
 
 """brew tea"""
 
-def finalizetea(state, robot, teabag)
+def finalizetea(state, robot, teabag):
 	return[('taskprepareteabag', robot, teabag), ('taskbrewtea', robot)]
 pyhop.declare_methods('taskfinalizetea', finalizetea)
 
@@ -273,7 +286,7 @@ pyhop.print_methods()
 print('')
 
 state1 = pyhop.State('state1')
-state1.loc = {'robot':Location.startlocation, 'kettle':Location.kettlebase, 'teacup':Location.shelf, 'teabag':Location.shelf}
+state1.loc = {'robot':Location.startlocation, 'coldtap':Location.kitchensink, 'kettle':Location.kettlebase, 'teacup':Location.shelf, 'teabag':Location.shelf}
 state1.accessible = {'kettle':Accessible.yes, 'kettlebase':Accessible.yes, 'coldtap':Accessible.yes, 'teacup':Accessible.yes, 'teabag':Accessible.yes}
 state1.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'teacup':{'cleanstate':Itemstate.clean, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'coldtap':{'openstate':Itemstate.closed}}
 state1.robotarm = {'robot':RobotArm.free}
@@ -287,18 +300,18 @@ print('')
 
 print("""
 ********************************************************************************
-Call pyhop.pyhop(state1,[('layer0','robot','teabag')]) with different verbosity levels
+Call pyhop.pyhop(state1,[('taskmaketea','robot','teabag')]) with different verbosity levels
 ********************************************************************************
 """)
 
 """print("- If verbose=0 (the default), Pyhop returns the solution but prints nothing.\n")
-pyhop.pyhop(state1,[('layer0','robot','teabag')])
+pyhop.pyhop(state1,[('taskmaketea','robot','teabag')])
 
 print('- If verbose=1, Pyhop prints the problem and solution, and returns the solution:')
-pyhop.pyhop(state1,[('layer0','robot','teabag')],verbose=1)
+pyhop.pyhop(state1,[('taskmaketea','robot','teabag')],verbose=1)
 
 print('- If verbose=2, Pyhop also prints a note at each recursive call:')
-pyhop.pyhop(state1,[('layer0','robot','teabag')],verbose=2)"""
+pyhop.pyhop(state1,[('taskmaketea','robot','teabag')],verbose=2)"""
 
 print('- If verbose=3, Pyhop also prints the intermediate states:')
-pyhop.pyhop(state1,[('layer0','robot','teabag')],verbose=2)
+pyhop.pyhop(state1,[('taskmaketea','robot','teabag')],verbose=3)
