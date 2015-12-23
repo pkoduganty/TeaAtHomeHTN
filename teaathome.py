@@ -205,8 +205,23 @@ def opencoldtap(state, robot):
 		else: return False
 	else: return False
 
-def pourintocup(state, robot, 'teacup'):
-
+def pourintocup(state, robot, teacup):
+	if state.loc[robot] == state.loc['teacup']:
+		if state.robotarm[robot] == RobotArm.kettle:
+			if state.itemstate['kettle']['openstate'] == Itemstate.open:
+				if state.itemstate['kettle']['tempstate'] == Itemstate.hot:
+					if state.itemstate['kettle']['fillstate'] == Itemstate.full:
+						state.itemstate['teacup']['fillstate'] = Itemstate.full
+						state.itemstate['teacup']['tempstate'] = Itemstate.hot
+						state.itemstate['kettle']['fillstate'] = Itemstate.empty
+						state.itemstate['kettle']['tempstate'] = Itemstate.cold
+						return state
+					else: return False
+				else: return False
+			else: return False
+		else: return False
+	else: return False
+	
 pyhop.declare_operators(goto, open, grasp, place, close, check, weigh, placein, turnonkettlebase, access, opencoldtap, pourintocup)
 print('')
 pyhop.print_operators()
@@ -281,7 +296,7 @@ def placebagincup(state, robot, teabag):
 pyhop.declare_methods('taskplacebagincup', placebagincup)
 
 def brewtea(state, robot):
-	return[('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('open', robot, 'kettle'), ('grasp', robot, 'kettle'), ('pourintocup', robot, 'teacup'), ('place', robot, 'kettle', Location.kettlebase)]
+	return[('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('open', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.countertop), ('pourintocup', robot, 'teacup'), ('goto', robot, Location.kettlebase), ('place', robot, 'kettle', Location.kettlebase), ('close', robot, 'kettle')]
 pyhop.declare_methods('taskbrewtea', brewtea)
 
 print('')
