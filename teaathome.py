@@ -138,8 +138,8 @@ def place(state, robot, item, location):
 def placein(state, robot, targetitem, robotitem):
 	if state.loc[robot] == state.loc[targetitem]:
 		if state.robotarm[robot] == RobotArm[robotitem]:
-			if state.loc[targetitem] == Locations.countertop:
-				state.loc[robotitem] = Location[targetitem].loc
+			if state.loc[targetitem] == Location.countertop:
+				state.loc[robotitem] = state.loc[targetitem]
 				state.robotarm[robot] = RobotArm.free
 				return state
 			else: return False
@@ -197,58 +197,76 @@ pyhop.print_operators()
 print('')
 
 def maketea(state, robot, teabag):
-	return [('layer1.1', robot), ('layer1.2', robot, teabag), ('layer1.3', robot)]
-pyhop.declare_methods('layer0', maketea)
+	return [('taskpreparehotwater', robot), ('taskgetcleancup', robot, teabag), ('taskfinalizetea', robot)]
+pyhop.declare_methods('taskmaketea', maketea)
+
+"""Prepare Kettle methods"""
 
 def preparehotwater(state, robot):
-	if (state.itemstate['kettle']['tempstate'] == Itemstate.hot]):
+	if (state.itemstate['kettle']['tempstate'] == Itemstate.hot):
 		return []
-	else: return [('layer2.1', robot)]
-def getcleancup(state, robot):
-	return [('layer2.2', robot)]
-pyhop.declare_methods('layer1.1', preparehotwater, getcleancup)
-
-def brewtea(state, robot, teabag):
-	return [('layer2.3', robot, teabag)]
-pyhop.declare_methods('layer1.2', brewtea)
-
-def finalizetea(state, robot):
-	return[('access', robot, 'kettle'), ('open', robot, 'kettle'), ('grasp', robot, 'kettle'), ('pourintocup', robot, 'teacup'), ('replace', robot, 'kettle')]
-pyhop.declare_methods('layer1.3', finalizetea)
-
-def preparekettle(state, robot):
-	return [('layer3.1', robot)]
-def makehotwater(state, robot):
-	return [('layer3.2', robot)]
-pyhop.declare_methods('layer2.1', preparekettle, makehotwater)
-
-def checkcupdirty(state, robot):
-	return [('goto', robot, Location.shelf), ('access', robot, 'teacup'), ('grasp', robot, 'teacup'), ('check', 'teacup', 'cleanstate', Itemstate.clean)]
-def placecup(state, robot):
-	return [('goto', robot, Location.countertop), ('place', robot, 'teacup', Location.countertop)]
-pyhop.declare_methods('layer2.2', checkcupdirty, placecup)
-
-def getteabag(state, robot, teabag):
-	return [('goto', robot, Location.shelf), ('access', robot, 'teabag'), ('grasp', robot, 'teabag')]
-def placebagincup(state, robot, teabag):# TODO remove teabag
-	return[('goto', robot, Location.countertop), ('access', robot, 'teacup'), ('placein', robot, 'teacup')]
-pyhop.declare_methods('layer2.3', getteabag, placebagincup)
+	else: return [('taskcheckkettlefill', robot), ('tasplacekettleinsink', robot), ('taskfillkettle', robot), ('taskplacekettleonbase', robot), ('taskboilwater', robot)]
+pyhop.declare_methods('taskpreparehotwater', preparehotwater)	
 
 def checkkettlefill(state, robot):
 	return [('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('check', 'kettle', 'openstate', Itemstate.closed), ('grasp', robot, 'kettle'), ('weigh', robot, 'kettle', Itemstate.empty), ('place', robot, 'kettle', Location.kettlebase)]
+pyhop.declare_methods('taskcheckkettlefill', checkkettlefill)
+
 def placekettleinsink(state, robot):
 	return [('goto', robot, Location.kitchensink), ('place', robot, 'kettle', Location.kitchensink)]
+pyhop.declare_methods('tasplacekettleinsink', placekettleinsink)
+
 def fillkettle(state, robot):
 	return [('open', robot, 'kettle'), ('open', robot, 'coldtap'), ('fill', robot, 'kettle'), ('close', robot, 'coldtap'), ('close', robot, 'kettle')]
+pyhop.declare_methods('taskfillkettle', fillkettle)
+
+def placekettleonbase(state, robot):
+	return [ ('bringkettletobase', robot), ('place', robot, 'kettle', Location.kettlebase)]
+pyhop.declare_methods('taskplacekettleonbase', placekettleonbase)
+
 def bringkettletobase(state, robot):
 	return [('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.kettlebase)]
-def placekettleonbase(state, robot):
-	return [('place', robot, 'kettle', Location.kettlebase)]
-pyhop.declare_methods('layer3.1', checkkettlefill, placekettleinsink, fillkettle, bringkettletobase, placekettleonbase)
+pyhop.declare_methods('taskbringkettletobase', bringkettletobase)
 
 def boilwater(state, robot):
 	return [ ('turnonkettlebase', robot, 'kettle')]
-pyhop.declare_methods('layer3.2', boilwater)
+pyhop.declare_methods('taskboilwater', boilwater)
+
+"""prepare cup methods"""
+
+def getcleancup(state, robot):
+	return [('taskcheckcupdirty', robot), ('taskplacecup', robot)]
+pyhop.declare_methods('taskgetcleancup', getcleancup)
+
+def checkcupdirty(state, robot):
+	return [('goto', robot, Location.shelf), ('access', robot, 'teacup'), ('grasp', robot, 'teacup'), ('check', 'teacup', 'cleanstate', Itemstate.clean)]
+pyhop.declare_methods('taskcheckcupdirty', checkcupdirty)
+
+def placecup(state, robot):
+	return [, ('goto', robot, Location.countertop), ('place', robot, 'teacup', Location.countertop)]
+pyhop.declare_methods('taskplacecup', placecup)
+
+"""brew tea"""
+
+def finalizetea(state, robot, teabag)
+	return[('taskprepareteabag', robot, teabag), ('taskbrewtea', robot)]
+pyhop.declare_methods('taskfinalizetea', finalizetea)
+
+def prepareteabag(state, robot, teabag):
+	return [('taskgetteabag', robot, teabag), ('placebagincup', robot) ]
+pyhop.declare_methods('taskprepareteabag', prepareteabag)
+
+def getteabag(state, robot, teabag):
+	return [('goto', robot, Location.shelf), ('access', robot, 'teabag'), ('grasp', robot, 'teabag')]
+pyhop.declare_methods('taskgetteabag', getteabag)
+
+def placebagincup(state, robot, teabag):# TODO remove teabag
+	return[('goto', robot, Location.countertop), ('access', robot, 'teacup'), ('placein', robot, 'teacup')]
+pyhop.declare_methods('taskplacebagincup', placebagincup)
+
+def brewtea(state, robot):
+	return[('access', robot, 'kettle'), ('open', robot, 'kettle'), ('grasp', robot, 'kettle'), ('pourintocup', robot, 'teacup'), ('replace', robot, 'kettle')]
+pyhop.declare_methods('taskbrewtea', brewtea)
 
 print('')
 pyhop.print_methods()
@@ -283,4 +301,4 @@ print('- If verbose=2, Pyhop also prints a note at each recursive call:')
 pyhop.pyhop(state1,[('layer0','robot','teabag')],verbose=2)"""
 
 print('- If verbose=3, Pyhop also prints the intermediate states:')
-pyhop.pyhop(state1,[('layer0','robot','teabag')],verbose=3)
+pyhop.pyhop(state1,[('layer0','robot','teabag')],verbose=2)
