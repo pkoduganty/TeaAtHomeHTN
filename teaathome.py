@@ -7,8 +7,9 @@ import pyhop
 import random
 reload(pyhop)
 
-numcupstotal = 1
-numcupsknowndirty = 0
+numcupstotal = 77
+numcupsknowndirty = 30
+numcupsknownclean = 1
 
 class Itemstate(Enum):
 	closed = 0
@@ -59,14 +60,15 @@ class Accessible(Enum):
 	yes = 1
 	
 
-
-def getrandomcupstate(cup):
+def getrandomcupstate(state, cup):
 	print("\n getrandom cup: " + cup + " str to compare: " + 'teacup' + str(numcupstotal))
-	if (state1.itemstate[cup]['cleanstate'] == Itemstate.unknown):
-		if (cup == 'teacup' + str(numcupstotal) and numcupstotal - numcupsknowndirty > 0):
+	if (state.itemstate[cup]['cleanstate'] == Itemstate.unknown):
+		print("Itemstate unknown")
+		if ((cup == 'teacup' + str(numcupstotal)) and (numcupstotal - numcupsknowndirty > 0)):
 			return Itemstate.clean
 		return Itemstate(random.randint(6, 7))
 	else:
+		print("Itemstate known")
 		return state1.itemstate[cup]['cleanstate']
 
 """@brief: Changes the location of the robot.
@@ -303,14 +305,16 @@ def checkcupdirty(state, robot):
 		teacup = 'teacup' + str(x)
 		teacuploc = state.loc[teacup]
 		task = task + [('goto', robot, state.loc[teacup]), ('access', robot, teacup), ('grasp', robot, teacup)]
-		state.itemstate[teacup]['cleanstate'] = getrandomcupstate(teacup)
+		state.itemstate[teacup]['cleanstate'] = getrandomcupstate(state, teacup)
 		if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
 			print ("\nCup is clean!\n")
 			task = task + [('taskplacecup', robot, teacup)]
+			state.currentcup = teacup
 			return task 
 		print ("\nCup is dirty!\n")
 		task = task + [('place', robot, teacup, teacuploc)]
 	if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
+		state.currentcup = teacup
 		return task
 	else: 
 		print("\n****I found only dirty cups, you have to clean some first!****")
@@ -325,7 +329,7 @@ pyhop.declare_methods('taskplacecup', placecup)
 """brew tea"""
 
 def finalizetea(state, robot, teabag):
-	return[('taskprepareteabag', robot, teabag), ('taskbrewtea', robot)]
+	return[('taskprepareteabag', robot, teabag), ('taskbrewtea', robot, teabag)]
 pyhop.declare_methods('taskfinalizetea', finalizetea)
 
 def prepareteabag(state, robot, teabag):
@@ -337,11 +341,13 @@ def getteabag(state, robot, teabag):
 pyhop.declare_methods('taskgetteabag', getteabag)
 
 def placebagincup(state, robot, teabag):
-	return[('goto', robot, Location.countertop), ('access', robot, 'teacup'), ('placein', robot, 'teacup', teabag)]
+	if(state.currentcup == ""):
+		return False
+	return[('goto', robot, Location.countertop), ('access', robot, state.currentcup), ('placein', robot, state.currentcup, teabag)]
 pyhop.declare_methods('taskplacebagincup', placebagincup)
 
-def brewtea(state, robot):
-	return[('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('open', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.countertop), ('pourintocup', robot, 'teacup'), ('goto', robot, Location.kettlebase), ('place', robot, 'kettle', Location.kettlebase), ('close', robot, 'kettle')]
+def brewtea(state, robot, teabag):
+	return[('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('open', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.countertop), ('pourintocup', robot, state.currentcup), ('goto', robot, Location.kettlebase), ('place', robot, 'kettle', Location.kettlebase), ('close', robot, 'kettle')]
 pyhop.declare_methods('taskbrewtea', brewtea)
 
 print('')
@@ -362,16 +368,25 @@ while teacups <= numcupstotal:
 	teacups = teacups + 1
 	
 state2.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'coldtap':{'openstate':Itemstate.closed}}
-teacups = 1
-while teacups <= numcupstotal:
-	if(teacups < numcupsknowndirty):
-		state2.itemstate['teacup'+str(teacups)] = {'cleanstate':Itemstate.dirty, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
-	else:
-		state2.itemstate['teacup'+str(teacups)] = {'cleanstate':Itemstate.unknown, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
-	teacups = teacups + 1
-	
 
+for x in range(1, numcupstotal + 1):
+	state2.itemstate['teacup'+str(teacups)] = {'cleanstate':Itemstate.unknown, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
+	dirtycups = 0
+while dirtycups <= range(1, numcupsknowndirty):
+	cup = 'teacup'+str(random.randint(1,numcupstotal))
+	if(state2.itemstate[cup]['cleanstate'] == Itemstate.unknown):
+		state2.itemstate[cup]['cleanstate'] = Itemstate.dirty
+		dirtycups = dirtycups + 1
+cleancups = 0
+while cleancups <= range(1, numcupsknownclean):
+	cup = 'teacup'+str(random.randint(1,numcupstotal))
+	if(state2.itemstate[cup]['cleanstate'] == Itemstate.unknown):
+		state2.itemstate[cup]['cleanstate'] = Itemstate.clean
+		cleancups = cleancups + 1
+
+	
 state2.robotarm = {'robot':RobotArm.free}
+state2.currentcup = ""
 
 goal2 = pyhop.Goal('goal1')
 goal2.loc = {'robot':Location.startlocation, 'kettle':Location.kettlebase, 'teabag':Location.inteacup}
