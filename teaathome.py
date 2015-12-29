@@ -31,6 +31,11 @@ class Location(Enum):
 	countertop = 4
 	robotarm = 5
 	inteacup = 6
+	
+class TeacupState():
+	clean = 0
+	dirty = 1
+	taken = 2
     
 class Accessible(Enum):
 	no = 0
@@ -136,11 +141,11 @@ def place(state, robot, item, location):
 	@param: robot robot
 	@param: targetitem targetitem
 	@param: robotitem item the robot is holding"""
-def placein(state, robot, targetitem, robotitem):
-	if state.loc[robot] == state.loc[targetitem]:
-		if state.robotarm[robot] == RobotArm[robotitem]:
-			if state.loc[targetitem] == Location.countertop:
-				state.loc[robotitem] = state.loc[targetitem]
+def placein(state, robot, teacup, teabag):
+	if state.loc[robot] == state.loc[teacup]:
+		if state.robotarm[robot] == RobotArm[teabag]:
+			if state.loc[teacup] == Location.countertop:
+				state.loc[teabag] = Location.inteacup
 				state.robotarm[robot] = RobotArm.free
 				return state
 			else: return False
@@ -241,7 +246,7 @@ def getcleancup(state, robot):
 pyhop.declare_methods('taskgetcleancup', getcleancup)
 
 def checkcupdirty(state, robot):
-	return [('goto', robot, Location.shelf), ('access', robot, 'teacup'), ('grasp', robot, 'teacup'), ('check', 'teacup', 'cleanstate', Itemstate.clean)]
+	return [('goto', robot, state.loc['teacup']), ('access', robot, 'teacup'), ('grasp', robot, 'teacup'), ('check', 'teacup', 'cleanstate', Itemstate.clean)]
 pyhop.declare_methods('taskcheckcupdirty', checkcupdirty)
 
 def placecup(state, robot):
@@ -275,7 +280,7 @@ pyhop.print_methods()
 print('')
 
 state1 = pyhop.State('state1')
-state1.loc = {'robot':Location.startlocation, 'coldtap':Location.kitchensink, 'kettle':Location.kettlebase, 'teacup':Location.shelf, 'teabag':Location.shelf}
+state1.loc = {'robot':Location.startlocation, 'coldtap':Location.kitchensink, 'kettle':Location.kettlebase, 'teacup':Location.countertop, 'teabag':Location.shelf}
 state1.accessible = {'kettle':Accessible.yes, 'kettlebase':Accessible.yes, 'coldtap':Accessible.yes, 'teacup':Accessible.yes, 'teabag':Accessible.yes}
 state1.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'teacup':{'cleanstate':Itemstate.clean, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'coldtap':{'openstate':Itemstate.closed}}
 state1.robotarm = {'robot':RobotArm.free}
