@@ -140,6 +140,7 @@ def weigh(state, robot, item, expectedvalue):
 	@param: robot robot
 	@param: item item to grasp"""
 def grasp(state, robot, item):
+	print(state.robotarm[robot])
 	if state.loc[robot] == state.loc[item]:
 		if state.robotarm[robot] == RobotArm.free:
 			state.robotarm[robot] = RobotArm[item]
@@ -335,19 +336,19 @@ print('')
 state2 = pyhop.State('state2')
 state2.loc = {'robot':Location.startlocation, 'coldtap':Location.kitchensink, 'kettle':Location.kettlebase, 'teacup':Location.countertop, 'teabag':Location.countertop}
 teacups = 1
-while teacups < numcupstotal:
+while teacups <= numcupstotal:
 	state2.loc['teacup'+str(teacups)] = Location((random.randint(6, 13)))
 	teacups = teacups + 1
 	
 state2.accessible = {'kettle':Accessible.yes, 'kettlebase':Accessible.yes, 'coldtap':Accessible.yes, 'teabag':Accessible.yes}
 teacups = 1
-while teacups < numcupstotal:
+while teacups <= numcupstotal:
 	state2.accessible['teacup'+str(teacups)] = Accessible.yes
 	teacups = teacups + 1
 	
 state2.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'teacup':{'cleanstate':Itemstate.clean, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'coldtap':{'openstate':Itemstate.closed}}
 teacups = 1
-while teacups < numcupstotal:
+while teacups <= numcupstotal:
 	if(teacups < numcupsknowndirty):
 		state2.itemstate['teacup'+str(teacups)] = {'cleanstate':Itemstate.dirty, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
 	else:
@@ -381,4 +382,4 @@ print('- If verbose=2, Pyhop also prints a note at each recursive call:')
 pyhop.pyhop(state1,[('taskmaketea','robot','teabag')],verbose=2)"""
 
 print('- If verbose=3, Pyhop also prints the intermediate states:')
-pyhop.pyhop(state2,[('taskmaketea','robot','teabag', 1)],verbose=2)
+pyhop.pyhop(state2,[('taskmaketea','robot','teabag', 1)],verbose=3)
