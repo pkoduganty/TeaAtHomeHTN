@@ -356,16 +356,18 @@ def checkcupdirty(state, robot):
 	teacup = ""
 	for x in range(1, numcupstotal + 1):
 		teacup = 'teacup' + str(x)
-		teacuploc = state.loc[teacup]
-		task = task + [('goto', robot, state.loc[teacup]), ('access', robot, teacup), ('grasp', robot, teacup)]
-		state.itemstate[teacup]['cleanstate'] = getrandomcupstate(state, teacup)
-		if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
-			print ("\nCup is clean!\n")
-			task = task + [('taskplacecup', robot, teacup)]
-			state.currentcup = teacup
-			return task 
-		print ("\nCup is dirty!\n")
-		task = task + [('place', robot, teacup, teacuploc)]
+		if(state.itemstate[teacup]['cleanstate']!=Itemstate.taken):
+			teacuploc = state.loc[teacup]
+			task = task + [('goto', robot, state.loc[teacup]), ('access', robot, teacup), ('grasp', robot, teacup)]
+			state.itemstate[teacup]['cleanstate'] = getrandomcupstate(state, teacup)
+			if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
+				print ("\nCup is clean!\n")
+				task = task + [('taskplacecup', robot, teacup)]
+				state.currentcup = teacup
+				return task 
+			print ("\nCup is dirty!\n")
+			task = task + [('place', robot, teacup, teacuploc)]
+			
 	if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
 		state.currentcup = teacup
 		return task
@@ -396,6 +398,7 @@ pyhop.declare_methods('taskgetteabag', getteabag)
 def placebagincup(state, robot, teabag):
 	if(state.currentcup == ""):
 		return False
+	state.itemstate[state.currentcup]['cleanstate'] = Itemstate.taken
 	return[('goto', robot, Location.countertop), ('access', robot, state.currentcup), ('placein', robot, state.currentcup, teabag)]
 pyhop.declare_methods('taskplacebagincup', placebagincup)
 
@@ -433,9 +436,8 @@ def test2():
 		if(state.itemstate[cup]['cleanstate'] == Itemstate.unknown):
 			state.itemstate[cup]['cleanstate'] = Itemstate.dirty
 			dirtycups = dirtycups + 1
-		print("unknown")
-	cleancups = 0
-	"""while cleancups <= numcupsknownclean:
+	"""cleancups = 0
+	while cleancups <= numcupsknownclean:
 		cup = 'teacup'+str(random.randint(1,numcupstotal))
 		if(state2.itemstate[cup]['cleanstate'] == Itemstate.unknown):
 			state2.itemstate[cup]['cleanstate'] = Itemstate.clean
@@ -470,4 +472,4 @@ pyhop.pyhop(state1,[('taskmaketea','robot','teabag')],verbose=2)"""
 
 print('- If verbose=3, Pyhop also prints the intermediate states:')
 test2()
-pyhop.pyhop(state,[('taskmaketea','robot','teabag', 1)],verbose=2)
+pyhop.pyhop(state,[('taskmaketea','robot','teabag', 2)],verbose=2)
