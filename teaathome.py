@@ -43,11 +43,18 @@ class Location(Enum):
 	shelf6 = 11
 	shelf7 = 12
 	shelf8 = 13
-	
    
 class Accessible(Enum):
 	no = 0
 	yes = 1
+	
+numcupstotal = 5
+numcupsknowndirty = 3
+
+def getrandomcupstate(cup):
+	if (cup == 'teacup' + str(numcupstotal)):
+		return Itemstate.clean
+	return (random.randint(6, 7))
 
 """@brief: Changes the location of the robot.
 	@param: state current state
@@ -270,7 +277,15 @@ def getcleancup(state, robot):
 pyhop.declare_methods('taskgetcleancup', getcleancup)
 
 def checkcupdirty(state, robot):
-	return [('goto', robot, state.loc['teacup']), ('access', robot, 'teacup'), ('grasp', robot, 'teacup'), ('check', 'teacup', 'cleanstate', Itemstate.clean)]
+	teacupnum = 1
+	teacup = 'teacup' + str(teacupnum)
+	task = []
+	for x in xrange(numcupstotal):
+		task = task + [('goto', robot, state.loc[teacup]), ('access', robot, teacup), ('grasp', robot, teacup), ('check', teacup, 'cleanstate', Itemstate.clean)]
+		state.itemstate[teacup]['cleanstate'] = getrandomcupstate(teacup)
+		if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
+			return task
+	return task
 pyhop.declare_methods('taskcheckcupdirty', checkcupdirty)
 
 def placecup(state, robot):
@@ -306,37 +321,36 @@ print('')
 pyhop.print_methods()
 print('')
 
-state1 = pyhop.State('state1')
-state1.loc = {'robot':Location.startlocation, 'coldtap':Location.kitchensink, 'kettle':Location.kettlebase, 'teacup':Location.countertop, 'teabag':Location.countertop}
+state2 = pyhop.State('state2')
+state2.loc = {'robot':Location.startlocation, 'coldtap':Location.kitchensink, 'kettle':Location.kettlebase, 'teacup':Location.countertop, 'teabag':Location.countertop}
 teacups = 1
-while teacups < 77:
-	state1.loc['teacup'+str(teacups)] = random.randint(6, 13)
+while teacups < numcupstotal:
+	state2.loc['teacup'+str(teacups)] = random.randint(6, 13)
 	teacups = teacups + 1
 	
-state1.accessible = {'kettle':Accessible.yes, 'kettlebase':Accessible.yes, 'coldtap':Accessible.yes, 'teabag':Accessible.yes}
+state2.accessible = {'kettle':Accessible.yes, 'kettlebase':Accessible.yes, 'coldtap':Accessible.yes, 'teabag':Accessible.yes}
 teacups = 1
-while teacups < 77:
-	state1.accessible['teacup'+str(teacups)] = Accessible.yes
+while teacups < numcupstotal:
+	state2.accessible['teacup'+str(teacups)] = Accessible.yes
 	teacups = teacups + 1
 	
-state1.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'teacup':{'cleanstate':Itemstate.clean, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'coldtap':{'openstate':Itemstate.closed}}
+state2.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'teacup':{'cleanstate':Itemstate.clean, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'coldtap':{'openstate':Itemstate.closed}}
 teacups = 1
-while teacups < 77:
-	if(teacups < 31):
-		state1.itemstate['teacup'+str(teacups)] = {'cleanstate':Itemstate.dirty, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
-	elif (teacups < 76):
-		state1.itemstate['teacup'+str(teacups)] = {'cleanstate':Itemstate.unknown, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
+while teacups < numcupstotal:
+	if(teacups < numcupsknowndirty):
+		state2.itemstate['teacup'+str(teacups)] = {'cleanstate':Itemstate.dirty, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
 	else:
-		state1.itemstate['teacup'+str(teacups)] = {'cleanstate':Itemstate.clean, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
+		state2.itemstate['teacup'+str(teacups)] = {'cleanstate':Itemstate.unknown, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
 	teacups = teacups + 1
 	
-state1.robotarm = {'robot':RobotArm.free}
 
-goal1 = pyhop.Goal('goal1')
-goal1.loc = {'robot':Location.startlocation, 'kettle':Location.kettlebase, 'teacup':Location.countertop, 'teabag':Location.inteacup}
-goal1.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate': Itemstate.empty}, 'coldtap':{'openstate':Itemstate.closed}, 'teacup':{'fillstate':Itemstate.full, 'tempstate':Itemstate.hot}}
-goal1.robotarm = {'robot':RobotArm.free}
-pyhop.print_goal(goal1)
+state2.robotarm = {'robot':RobotArm.free}
+
+goal2 = pyhop.Goal('goal1')
+goal2.loc = {'robot':Location.startlocation, 'kettle':Location.kettlebase, 'teacup':Location.countertop, 'teabag':Location.inteacup}
+goal2.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate': Itemstate.empty}, 'coldtap':{'openstate':Itemstate.closed}, 'teacup':{'fillstate':Itemstate.full, 'tempstate':Itemstate.hot}}
+goal2.robotarm = {'robot':RobotArm.free}
+pyhop.print_goal(goal2)
 
 print('')
 print("""
@@ -356,4 +370,4 @@ print('- If verbose=2, Pyhop also prints a note at each recursive call:')
 pyhop.pyhop(state1,[('taskmaketea','robot','teabag')],verbose=2)"""
 
 print('- If verbose=3, Pyhop also prints the intermediate states:')
-pyhop.pyhop(state1,[('taskmaketea','robot','teabag', 1)],verbose=2)
+pyhop.pyhop(state2,[('taskmaketea','robot','teabag', 1)],verbose=3)
