@@ -210,11 +210,20 @@ pyhop.declare_methods('taskmaketea', maketea)
 """Prepare Kettle methods"""
 
 def preparehotwater(state, robot):
-	if ((state.itemstate['kettle']['tempstate'] == Itemstate.hot) and (state.loc['kettle'] == Location.kettlebase) and (state.itemstate['kettle']['fillstate'] == Itemstate.full)):
-		return []
-	else: return [ ('tasplacekettleinsink', robot), ('taskfillkettle', robot), ('taskplacekettleonbase', robot), ('taskboilwater', robot)]
+	if (state.loc['kettle'] == Location.kettlebase):
+		if (state.itemstate['kettle']['fillstate'] == Itemstate.full):
+			if (state.itemstate['kettle']['tempstate'] == Itemstate.hot):
+				return []
+			else:
+				return [('taskboilwater', robot)]
+		else:
+			# TODO same as below? state.loc['kettle'] dynamic? remove this else?
+			return [('tasplacekettleinsink', robot), ('taskfillkettle', robot), ('taskplacekettleonbase', robot), ('taskboilwater', robot)]
+	else:
+		# Everything
+		return [('tasplacekettleinsink', robot), ('taskfillkettle', robot), ('taskplacekettleonbase', robot), ('taskboilwater', robot)]
 	"""('taskcheckkettlefill', robot), removed"""
-pyhop.declare_methods('taskpreparehotwater', preparehotwater)	
+pyhop.declare_methods('taskpreparehotwater', preparehotwater)
 
 def checkkettlefill(state, robot):
 	return [('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('check', 'kettle', 'openstate', Itemstate.closed), ('grasp', robot, 'kettle'), ('weigh', robot, 'kettle', Itemstate.empty), ('place', robot, 'kettle', Location.kettlebase)]

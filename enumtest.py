@@ -15,3 +15,7 @@ a = RobotArm.kettle
 print RobotArm['kettle'] == a
 
 print a.name == 'kettle'
+
+print '!!!'
+
+print RobotArm(3)
