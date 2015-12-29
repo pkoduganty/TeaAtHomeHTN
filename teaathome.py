@@ -218,7 +218,7 @@ def preparehotwater(state, robot):
 			if (state.loc['kettle'] != Location.kettlebase):
 				tasks = [('goto', robot, 'kettle'), ('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, 'kettlebase'), ('place', robot, 'kettle', 'kettlebase'), ('taskboilwater', robot)]
 			else:
-				tasks = [('goto', robot, state.loc['kettle']), ('taskboilwater', robot)]
+				tasks = [('taskboilwater', robot)]
 			return tasks 
 	else:
 		# Everything
@@ -231,10 +231,7 @@ def checkkettlefill(state, robot):
 pyhop.declare_methods('taskcheckkettlefill', checkkettlefill)
 
 def placekettleinsink(state, robot):
-	tasks = [('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.kitchensink), ('place', robot, 'kettle', Location.kitchensink)]
-	if (state.loc['robot'] != state.loc['kettle']):
-		returntasks = [('goto', robot, state.loc['kettle'])] + tasks
-	return returntasks
+	return [('goto', robot, state.loc['kettle']), ('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.kitchensink), ('place', robot, 'kettle', Location.kitchensink)]
 pyhop.declare_methods('tasplacekettleinsink', placekettleinsink)
 
 def fillkettle(state, robot):
@@ -250,7 +247,7 @@ def bringkettletobase(state, robot):
 pyhop.declare_methods('taskbringkettletobase', bringkettletobase)
 
 def boilwater(state, robot):
-	return [ ('turnonkettlebase', robot, 'kettle')]
+	return [ ('goto', robot, state.loc['kettle']), ('turnonkettlebase', robot, 'kettle')]
 pyhop.declare_methods('taskboilwater', boilwater)
 
 """prepare cup methods"""
