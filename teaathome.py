@@ -4,6 +4,7 @@ Tea@home - Code for
 
 from enum import Enum
 import pyhop
+import random
 reload(pyhop)
 
 class Itemstate(Enum):
@@ -15,6 +16,8 @@ class Itemstate(Enum):
 	cold = 5
 	clean = 6
 	dirty = 7
+	unknown = 8
+	taken = 9
 
 # string names must match with enum fields!
 class RobotArm(Enum):
@@ -25,19 +28,23 @@ class RobotArm(Enum):
     
 class Location(Enum):
 	kettlebase = 0
-	shelf = 1
-	startlocation = 2
-	kitchensink = 3
-	countertop = 4
-	robotarm = 5
-	inteacup = 6
+	startlocation = 1
+	kitchensink = 2
+	countertop = 3
+	robotarm = 4
+	inteacup = 5
+	"""cupboard 1"""
+	shelf1 = 6
+	shelf2 = 7
+	shelf3 = 8
+	shelf4 = 9
+	"""cupboard 2"""
+	shelf5 = 10	
+	shelf6 = 11
+	shelf7 = 12
+	shelf8 = 13
 	
-class Teacupstate():
-	unknown = 0
-	clean = 1
-	dirty = 2
-	taken = 3
-    
+   
 class Accessible(Enum):
 	no = 0
 	yes = 1
@@ -279,7 +286,7 @@ def prepareteabag(state, robot, teabag):
 pyhop.declare_methods('taskprepareteabag', prepareteabag)
 
 def getteabag(state, robot, teabag):
-	return [('goto', robot, Location.shelf), ('access', robot, 'teabag'), ('grasp', robot, 'teabag')]
+	return [('goto', robot, state.loc['teabag']), ('access', robot, 'teabag'), ('grasp', robot, 'teabag')]
 pyhop.declare_methods('taskgetteabag', getteabag)
 
 def placebagincup(state, robot, teabag):
@@ -295,11 +302,30 @@ pyhop.print_methods()
 print('')
 
 state1 = pyhop.State('state1')
-state1.loc = {'robot':Location.startlocation, 'coldtap':Location.kitchensink, 'kettle':Location.kettlebase, 'teacup':Location.countertop, 'teabag':Location.shelf}
-state1.accessible = {'kettle':Accessible.yes, 'kettlebase':Accessible.yes, 'coldtap':Accessible.yes, 'teacup':Accessible.yes, 'teabag':Accessible.yes}
+state1.loc = {'robot':Location.startlocation, 'coldtap':Location.kitchensink, 'kettle':Location.kettlebase, 'teacup':Location.countertop, 'teabag':Location.countertop}
+teacups = 1
+while teacups < 76:
+	state1.loc['teacup'+str(teacups)] = random.randint(6, 13)
+	teacups = teacups + 1
+	
+state1.accessible = {'kettle':Accessible.yes, 'kettlebase':Accessible.yes, 'coldtap':Accessible.yes, 'teabag':Accessible.yes}
+teacups = 1
+while teacups < 76:
+	state1.accessible['teacup'+str(teacups)] = Accessible.yes
+	teacups = teacups + 1
+	
 state1.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'teacup':{'cleanstate':Itemstate.clean, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'coldtap':{'openstate':Itemstate.closed}}
+teacups = 1
+while teacups < 76:
+	if(teacups < 31):
+		state1.itemstate['teacup'+str(teacups)] = {'cleanstate':Itemstate.dirty, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
+	elif (teacups < 75):
+		state1.itemstate['teacup'+str(teacups)] = {'cleanstate':Itemstate.unknown, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
+	else:
+		state1.itemstate['teacup'+str(teacups)] = {'cleanstate':Itemstate.clean, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
+	teacups = teacups + 1
+	
 state1.robotarm = {'robot':RobotArm.free}
-teacuparray = [Teacupstate.unknown for _ in range(75)]
 
 goal1 = pyhop.Goal('goal1')
 goal1.loc = {'robot':Location.startlocation, 'kettle':Location.kettlebase, 'teacup':Location.countertop, 'teabag':Location.inteacup}
