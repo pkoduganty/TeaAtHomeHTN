@@ -7,8 +7,8 @@ import pyhop
 import random
 reload(pyhop)
 
-numcupstotal = 5
-numcupsknowndirty = 3
+numcupstotal = 1
+numcupsknowndirty = 0
 
 class Itemstate(Enum):
 	closed = 0
@@ -287,17 +287,21 @@ def getcleancup(state, robot):
 	return [('taskcheckcupdirty', robot)]
 pyhop.declare_methods('taskgetcleancup', getcleancup)
 
+""" damit plan failed, muessten -numcups- alternative methoden fuer check geschrieben werden"""
+
 def checkcupdirty(state, robot):
 	task = []
 	for x in range(1, numcupstotal + 1):
 		teacup = 'teacup' + str(x)
-		task = task + [('goto', robot, state.loc[teacup]), ('access', robot, teacup), ('grasp', robot, teacup), ('check', teacup, 'cleanstate', Itemstate.clean)]
+		teacuploc = state.loc[teacup]
+		task = task + [('goto', robot, state.loc[teacup]), ('access', robot, teacup), ('grasp', robot, teacup)]
 		state.itemstate[teacup]['cleanstate'] = getrandomcupstate(teacup)
 		if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
 			print ("\nCup is clean!\n")
 			task = task + [('taskplacecup', robot, teacup)]
-			return task
+			return task 
 		print ("\nCup is dirty!\n")
+		task = task + [('place', robot, teacup, teacuploc)]
 	return task
 pyhop.declare_methods('taskcheckcupdirty', checkcupdirty)
 
