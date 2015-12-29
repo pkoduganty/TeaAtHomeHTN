@@ -210,7 +210,7 @@ pyhop.declare_methods('taskmaketea', maketea)
 """Prepare Kettle methods"""
 
 def preparehotwater(state, robot):
-	if ((state.itemstate['kettle']['tempstate'] == Itemstate.hot) AND (state.location['kettle'] == Location.kettlebase) AND (state.itemstate['kettle']['fillstate'] == Itemstate.full)):
+	if ((state.itemstate['kettle']['tempstate'] == Itemstate.hot) and (state.loc['kettle'] == Location.kettlebase) and (state.itemstate['kettle']['fillstate'] == Itemstate.full)):
 		return []
 	else: return [ ('tasplacekettleinsink', robot), ('taskfillkettle', robot), ('taskplacekettleonbase', robot), ('taskboilwater', robot)]
 	"""('taskcheckkettlefill', robot), removed"""
@@ -221,7 +221,10 @@ def checkkettlefill(state, robot):
 pyhop.declare_methods('taskcheckkettlefill', checkkettlefill)
 
 def placekettleinsink(state, robot):
-	return [('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.kitchensink), ('place', robot, 'kettle', Location.kitchensink)]
+	tasks = [('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.kitchensink), ('place', robot, 'kettle', Location.kitchensink)]
+	if (state.loc['robot'] != state.loc['kettle']):
+		returntasks = [('goto', robot, state.loc['kettle'])] + tasks
+	return returntasks
 pyhop.declare_methods('tasplacekettleinsink', placekettleinsink)
 
 def fillkettle(state, robot):
@@ -247,17 +250,17 @@ def getcleancup(state, robot):
 pyhop.declare_methods('taskgetcleancup', getcleancup)
 
 def checkcupdirty(state, robot):
+	tasks = [('access', robot, 'teacup'), ('grasp', robot, 'teacup'), ('check', 'teacup', 'cleanstate', Itemstate.clean)]
 	if state.loc['robot'] != state.loc['teacup']:
-		return [('goto', robot, state.loc['teacup']), ('access', robot, 'teacup'), ('grasp', robot, 'teacup'), ('check', 'teacup', 'cleanstate', Itemstate.clean)]
-	else:
-		return [('access', robot, 'teacup'), ('grasp', robot, 'teacup'), ('check', 'teacup', 'cleanstate', Itemstate.clean)]
+		tasks = [('goto', robot, state.loc['teacup'])] + tasks
+	return tasks
 pyhop.declare_methods('taskcheckcupdirty', checkcupdirty)
 
 def placecup(state, robot):
+	tasks = [('place', robot, 'teacup', Location.countertop)]
 	if state.loc['robot'] != Location.countertop:
-		return [('goto', robot, Location.countertop), ('place', robot, 'teacup', Location.countertop)]
-	else:
-		return [('place', robot, 'teacup', Location.countertop)]
+		tasks = [('goto', robot, Location.countertop)] + tasks
+	return tasks
 pyhop.declare_methods('taskplacecup', placecup)
 
 """brew tea"""
