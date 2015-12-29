@@ -213,7 +213,12 @@ pyhop.print_operators()
 print('')
 
 def maketea(state, robot, teabag, number):
-	return [('taskpreparehotwater', robot), ('taskgetcleancup', robot), ('taskfinalizetea', robot, teabag)]
+	task = [('taskpreparehotwater', robot), ('taskgetcleancup', robot), ('taskfinalizetea', robot, teabag)]
+	teas = 1
+	while (teas <= number):
+		task = task + task
+		teas = teas + 1
+	return task
 pyhop.declare_methods('taskmaketea', maketea)
 
 """Prepare Kettle methods"""
