@@ -205,8 +205,8 @@ print('')
 pyhop.print_operators()
 print('')
 
-def maketea(state, robot, teabag):
-	return [('taskpreparehotwater', robot), ('taskgetcleancup', robot), ('taskfinalizetea', robot, teabag)]
+def maketea(state, robot, teabag, teacuparray):
+	return [('taskpreparehotwater', robot), ('taskgetcleancup', robot, teacuparray), ('taskfinalizetea', robot, teabag)]
 pyhop.declare_methods('taskmaketea', maketea)
 
 """Prepare Kettle methods"""
@@ -253,15 +253,12 @@ pyhop.declare_methods('taskboilwater', boilwater)
 
 """prepare cup methods"""
 
-def getcleancup(state, robot):
-	return [('taskcheckcupdirty', robot), ('taskplacecup', robot)]
+def getcleancup(state, robot, teacuparray):
+	return [('taskcheckcupdirty', robot, teacuparray), ('taskplacecup', robot)]
 pyhop.declare_methods('taskgetcleancup', getcleancup)
 
-def checkcupdirty(state, robot):
-	tasks = [('access', robot, 'teacup'), ('grasp', robot, 'teacup'), ('check', 'teacup', 'cleanstate', Itemstate.clean)]
-	if state.loc['robot'] != state.loc['teacup']:
-		tasks = [('goto', robot, state.loc['teacup'])] + tasks
-	return tasks
+def checkcupdirty(state, robot, teacuparray):
+	return [('goto', robot, state.loc['teacup']), ('access', robot, 'teacup'), ('grasp', robot, 'teacup'), ('check', 'teacup', 'cleanstate', Itemstate.clean)]
 pyhop.declare_methods('taskcheckcupdirty', checkcupdirty)
 
 def placecup(state, robot):
@@ -302,7 +299,7 @@ state1.loc = {'robot':Location.startlocation, 'coldtap':Location.kitchensink, 'k
 state1.accessible = {'kettle':Accessible.yes, 'kettlebase':Accessible.yes, 'coldtap':Accessible.yes, 'teacup':Accessible.yes, 'teabag':Accessible.yes}
 state1.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'teacup':{'cleanstate':Itemstate.clean, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'coldtap':{'openstate':Itemstate.closed}}
 state1.robotarm = {'robot':RobotArm.free}
-state1.teacuparray = [Teacupstate.unknown for _ in range(75)]
+teacuparray = [Teacupstate.unknown for _ in range(75)]
 
 goal1 = pyhop.Goal('goal1')
 goal1.loc = {'robot':Location.startlocation, 'kettle':Location.kettlebase, 'teacup':Location.countertop, 'teabag':Location.inteacup}
@@ -328,4 +325,4 @@ print('- If verbose=2, Pyhop also prints a note at each recursive call:')
 pyhop.pyhop(state1,[('taskmaketea','robot','teabag')],verbose=2)"""
 
 print('- If verbose=3, Pyhop also prints the intermediate states:')
-pyhop.pyhop(state1,[('taskmaketea','robot','teabag')],verbose=3)
+pyhop.pyhop(state1,[('taskmaketea','robot','teabag',teacuparray)],verbose=3)
