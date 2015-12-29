@@ -212,7 +212,7 @@ print('')
 pyhop.print_operators()
 print('')
 
-def maketea(state, robot, teabag):
+def maketea(state, robot, teabag, number):
 	return [('taskpreparehotwater', robot), ('taskgetcleancup', robot), ('taskfinalizetea', robot, teabag)]
 pyhop.declare_methods('taskmaketea', maketea)
 
@@ -351,4 +351,4 @@ print('- If verbose=2, Pyhop also prints a note at each recursive call:')
 pyhop.pyhop(state1,[('taskmaketea','robot','teabag')],verbose=2)"""
 
 print('- If verbose=3, Pyhop also prints the intermediate states:')
-pyhop.pyhop(state1,[('taskmaketea','robot','teabag')],verbose=2)
+pyhop.pyhop(state1,[('taskmaketea','robot','teabag', 1)],verbose=2)
