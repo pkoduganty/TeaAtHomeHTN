@@ -48,8 +48,9 @@ class Accessible(Enum):
 def goto(state, robot, location):
 	if state.loc[robot] != location:
 		state.loc[robot] = location
-		return state
-	else: return False
+	else:
+		print("\n---Robot is allready at location - so goto does nothing!---")
+	return state
 
 """@brief: Item is accessible if the robot and the item have the same location (simplified)
 	@param: state current state
@@ -210,15 +211,15 @@ pyhop.declare_methods('taskmaketea', maketea)
 """Prepare Kettle methods"""
 
 def preparehotwater(state, robot):
-	if (state.loc['kettle'] == Location.kettlebase):
-		if (state.itemstate['kettle']['fillstate'] == Itemstate.full):
-			if (state.itemstate['kettle']['tempstate'] == Itemstate.hot):
-				return []
-			else:
-				return [('taskboilwater', robot)]
+	if (state.itemstate['kettle']['fillstate'] == Itemstate.full):
+		if (state.itemstate['kettle']['tempstate'] == Itemstate.hot):
+			return []
 		else:
-			# TODO same as below? state.loc['kettle'] dynamic? remove this else?
-			return [('tasplacekettleinsink', robot), ('taskfillkettle', robot), ('taskplacekettleonbase', robot), ('taskboilwater', robot)]
+			if (state.loc['kettle'] != Location.kettlebase):
+				tasks = [('goto', robot, 'kettle'), ('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, 'kettlebase'), ('place', robot, 'kettle', 'kettlebase'), ('taskboilwater', robot)]
+			else:
+				tasks = [('goto', robot, state.loc['kettle']), ('taskboilwater', robot)]
+			return tasks 
 	else:
 		# Everything
 		return [('tasplacekettleinsink', robot), ('taskfillkettle', robot), ('taskplacekettleonbase', robot), ('taskboilwater', robot)]
