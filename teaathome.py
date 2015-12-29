@@ -64,7 +64,7 @@ def getrandomcupstate(cup):
 	print("\n getrandom cup: " + cup + " str to compare: " + 'teacup' + str(numcupstotal))
 	if (cup == 'teacup' + str(numcupstotal)):
 		return Itemstate.clean
-	return Location(random.randint(6, 7))
+	return Itemstate(random.randint(6, 7))
 
 """@brief: Changes the location of the robot.
 	@param: state current state
@@ -284,7 +284,7 @@ pyhop.declare_methods('taskboilwater', boilwater)
 """prepare cup methods"""
 
 def getcleancup(state, robot):
-	return [('taskcheckcupdirty', robot), ('taskplacecup', robot)]
+	return [('taskcheckcupdirty', robot)]
 pyhop.declare_methods('taskgetcleancup', getcleancup)
 
 def checkcupdirty(state, robot):
@@ -295,15 +295,14 @@ def checkcupdirty(state, robot):
 		state.itemstate[teacup]['cleanstate'] = getrandomcupstate(teacup)
 		if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
 			print ("\nCup is clean!\n")
+			task = task + [('taskplacecup', robot, teacup)]
 			return task
 		print ("\nCup is dirty!\n")
 	return task
 pyhop.declare_methods('taskcheckcupdirty', checkcupdirty)
 
-def placecup(state, robot):
-	tasks = [('place', robot, 'teacup', Location.countertop)]
-	if state.loc['robot'] != Location.countertop:
-		tasks = [('goto', robot, Location.countertop)] + tasks
+def placecup(state, robot, teacup):
+	tasks = [('goto', robot, Location.countertop), ('place', robot, teacup, Location.countertop)]
 	return tasks
 pyhop.declare_methods('taskplacecup', placecup)
 
