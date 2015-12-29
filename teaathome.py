@@ -304,22 +304,22 @@ print('')
 state1 = pyhop.State('state1')
 state1.loc = {'robot':Location.startlocation, 'coldtap':Location.kitchensink, 'kettle':Location.kettlebase, 'teacup':Location.countertop, 'teabag':Location.countertop}
 teacups = 1
-while teacups < 76:
+while teacups < 77:
 	state1.loc['teacup'+str(teacups)] = random.randint(6, 13)
 	teacups = teacups + 1
 	
 state1.accessible = {'kettle':Accessible.yes, 'kettlebase':Accessible.yes, 'coldtap':Accessible.yes, 'teabag':Accessible.yes}
 teacups = 1
-while teacups < 76:
+while teacups < 77:
 	state1.accessible['teacup'+str(teacups)] = Accessible.yes
 	teacups = teacups + 1
 	
 state1.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'teacup':{'cleanstate':Itemstate.clean, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'coldtap':{'openstate':Itemstate.closed}}
 teacups = 1
-while teacups < 76:
+while teacups < 77:
 	if(teacups < 31):
 		state1.itemstate['teacup'+str(teacups)] = {'cleanstate':Itemstate.dirty, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
-	elif (teacups < 75):
+	elif (teacups < 76):
 		state1.itemstate['teacup'+str(teacups)] = {'cleanstate':Itemstate.unknown, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
 	else:
 		state1.itemstate['teacup'+str(teacups)] = {'cleanstate':Itemstate.clean, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
@@ -351,4 +351,4 @@ print('- If verbose=2, Pyhop also prints a note at each recursive call:')
 pyhop.pyhop(state1,[('taskmaketea','robot','teabag')],verbose=2)"""
 
 print('- If verbose=3, Pyhop also prints the intermediate states:')
-pyhop.pyhop(state1,[('taskmaketea','robot','teabag',teacuparray)],verbose=3)
+pyhop.pyhop(state1,[('taskmaketea','robot','teabag',teacuparray)],verbose=2)
