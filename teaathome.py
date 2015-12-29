@@ -32,10 +32,11 @@ class Location(Enum):
 	robotarm = 5
 	inteacup = 6
 	
-class TeacupState():
-	clean = 0
-	dirty = 1
-	taken = 2
+class Teacupstate():
+	unknown = 0
+	clean = 1
+	dirty = 2
+	taken = 3
     
 class Accessible(Enum):
 	no = 0
@@ -301,6 +302,7 @@ state1.loc = {'robot':Location.startlocation, 'coldtap':Location.kitchensink, 'k
 state1.accessible = {'kettle':Accessible.yes, 'kettlebase':Accessible.yes, 'coldtap':Accessible.yes, 'teacup':Accessible.yes, 'teabag':Accessible.yes}
 state1.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'teacup':{'cleanstate':Itemstate.clean, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'coldtap':{'openstate':Itemstate.closed}}
 state1.robotarm = {'robot':RobotArm.free}
+state1.teacuparray = [Teacupstate.unknown for _ in range(75)]
 
 goal1 = pyhop.Goal('goal1')
 goal1.loc = {'robot':Location.startlocation, 'kettle':Location.kettlebase, 'teacup':Location.countertop, 'teabag':Location.inteacup}
