@@ -34,9 +34,7 @@ for x in range(1, numcupstotal + 1):
 	teacups = teacups + ['teacup' + str(x)]
 teacups = [m.name for m in RobotArm] +  teacups
 RobotArm = Enum('Robotarm', teacups)
-print("\n----ROBOTARMENUM---\n")
-for i in RobotArm:
-	print (i)
+
 	
 class Location(Enum):
 	kettlebase = 0
@@ -63,9 +61,10 @@ class Accessible(Enum):
 
 
 def getrandomcupstate(cup):
+	print("\n getrandom cup: " + cup + " str to compare: " + 'teacup' + str(numcupstotal))
 	if (cup == 'teacup' + str(numcupstotal)):
 		return Itemstate.clean
-	return (random.randint(6, 7))
+	return Location(random.randint(6, 7))
 
 """@brief: Changes the location of the robot.
 	@param: state current state
@@ -233,7 +232,7 @@ print('')
 def maketea(state, robot, teabag, number):
 	task = [('taskpreparehotwater', robot), ('taskgetcleancup', robot), ('taskfinalizetea', robot, teabag)]
 	teas = 1
-	while (teas <= number):
+	while (teas < number):
 		task = task + task
 		teas = teas + 1
 	return task
@@ -288,14 +287,15 @@ def getcleancup(state, robot):
 pyhop.declare_methods('taskgetcleancup', getcleancup)
 
 def checkcupdirty(state, robot):
-	teacupnum = 1
-	teacup = 'teacup' + str(teacupnum)
 	task = []
-	for x in range(1, numcupstotal):
+	for x in range(1, numcupstotal + 1):
+		teacup = 'teacup' + str(x)
 		task = task + [('goto', robot, state.loc[teacup]), ('access', robot, teacup), ('grasp', robot, teacup), ('check', teacup, 'cleanstate', Itemstate.clean)]
 		state.itemstate[teacup]['cleanstate'] = getrandomcupstate(teacup)
 		if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
+			print ("\nCup is clean!\n")
 			return task
+		print ("\nCup is dirty!\n")
 	return task
 pyhop.declare_methods('taskcheckcupdirty', checkcupdirty)
 
@@ -336,7 +336,7 @@ state2 = pyhop.State('state2')
 state2.loc = {'robot':Location.startlocation, 'coldtap':Location.kitchensink, 'kettle':Location.kettlebase, 'teacup':Location.countertop, 'teabag':Location.countertop}
 teacups = 1
 while teacups < numcupstotal:
-	state2.loc['teacup'+str(teacups)] = random.randint(6, 13)
+	state2.loc['teacup'+str(teacups)] = Location((random.randint(6, 13)))
 	teacups = teacups + 1
 	
 state2.accessible = {'kettle':Accessible.yes, 'kettlebase':Accessible.yes, 'coldtap':Accessible.yes, 'teabag':Accessible.yes}
@@ -381,4 +381,4 @@ print('- If verbose=2, Pyhop also prints a note at each recursive call:')
 pyhop.pyhop(state1,[('taskmaketea','robot','teabag')],verbose=2)"""
 
 print('- If verbose=3, Pyhop also prints the intermediate states:')
-pyhop.pyhop(state2,[('taskmaketea','robot','teabag', 1)],verbose=3)
+pyhop.pyhop(state2,[('taskmaketea','robot','teabag', 1)],verbose=2)
