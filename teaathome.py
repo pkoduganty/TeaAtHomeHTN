@@ -7,6 +7,9 @@ import pyhop
 import random
 reload(pyhop)
 
+numcupstotal = 5
+numcupsknowndirty = 3
+
 class Itemstate(Enum):
 	closed = 0
 	open = 1
@@ -23,9 +26,18 @@ class Itemstate(Enum):
 class RobotArm(Enum):
 	free = 0
 	kettle = 1
-	teacup = 2
-	teabag = 3
-    
+	teabag = 2
+	
+
+teacups = []
+for x in range(1, numcupstotal + 1):
+	teacups = teacups + ['teacup' + str(x)]
+teacups = [m.name for m in RobotArm] +  teacups
+RobotArm = Enum('Robotarm', teacups)
+print("\n----ROBOTARMENUM---\n")
+for i in RobotArm:
+	print (i)
+	
 class Location(Enum):
 	kettlebase = 0
 	startlocation = 1
@@ -48,8 +60,7 @@ class Accessible(Enum):
 	no = 0
 	yes = 1
 	
-numcupstotal = 5
-numcupsknowndirty = 3
+
 
 def getrandomcupstate(cup):
 	if (cup == 'teacup' + str(numcupstotal)):
@@ -280,7 +291,7 @@ def checkcupdirty(state, robot):
 	teacupnum = 1
 	teacup = 'teacup' + str(teacupnum)
 	task = []
-	for x in xrange(numcupstotal):
+	for x in range(1, numcupstotal):
 		task = task + [('goto', robot, state.loc[teacup]), ('access', robot, teacup), ('grasp', robot, teacup), ('check', teacup, 'cleanstate', Itemstate.clean)]
 		state.itemstate[teacup]['cleanstate'] = getrandomcupstate(teacup)
 		if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
