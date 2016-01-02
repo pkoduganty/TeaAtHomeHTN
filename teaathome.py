@@ -1,5 +1,5 @@
 """
-Tea@home - Code for
+Code for tea at home
 """
 
 from enum import Enum
@@ -7,10 +7,14 @@ import pyhop
 import random
 reload(pyhop)
 
-numcupstotal = 77
-numcupsknowndirty = 30
+TOTAL_NUMBER_OF_TEACUPS = 77
+NUMBER_OF_DIRTY_TEACUPS = 30
 
 class Itemstate(Enum):
+	'''!@brief Properties for items.
+	Every item has properties to describe it's current and desired state: 'openstate', 'fillstate', 'tempstate' and 'cleanstate'
+	Values for these fields are members of Itemstate to make it more robust against errors, expecially against typos.
+	'''
 	closed = 0
 	open = 1
 	full = 2
@@ -22,21 +26,28 @@ class Itemstate(Enum):
 	unknown = 8
 	taken = 9
 
-# string names must match with enum fields!
 class RobotArm(Enum):
+	'''!@brief Properties of the robot arm.
+	All items the robot can carry with his arm have a corresponding enum field in RobotArm.
+	Because of a dynamic number of teacups, the teacup fields are created programmatically and RobotArm is recreated during runtime.
+	E.g. RobotArm.teacup1, RobotArm.teacup2, ..., RobotArm.teacup75
+	'''
 	free = 0
 	kettle = 1
 	teabag = 2
-	
 
 teacups = []
-for x in range(1, numcupstotal + 1):
+for x in range(1, TOTAL_NUMBER_OF_TEACUPS + 1):
 	teacups = teacups + ['teacup' + str(x)]
 teacups = [m.name for m in RobotArm] +  teacups
-RobotArm = Enum('Robotarm', teacups)
+RobotArm = Enum('RobotArm', teacups)
 
-	
 class Location(Enum):
+	'''!@brief Properties for items which can be moved.
+	We do NOT use a hierarchy of locations (e.g. multiple shelfs in a cupboard).
+	It is implicitely given, that shelf 1-4 are in cupboard 1 and shelf 5-8 are in cupboard 2.
+	Exception: We declare the teabag as "Location.inteacup" as simplified solution.
+	'''
 	kettlebase = 0
 	startlocation = 1
 	kitchensink = 2
@@ -55,59 +66,74 @@ class Location(Enum):
 	shelf8 = 13
    
 class Accessible(Enum):
+	'''!@brief Properties if the item can be reached.
+	Theoretically, items can be locked or barred. This would be declared in the state object (observation of the world).
+	In our solution, all items are accessible but the robot is still checking if this is truely the case.
+	'''
 	no = 0
 	yes = 1
-	
 
 def getrandomcupstate(state, cup):
-	"""print("\n getrandom cup: " + cup + " str to compare: " + 'teacup' + str(numcupstotal))"""
+	"""!@brief (Helper function) Randomly get a clean or dirty cup.
+	@param state current state
+	@param cup cup
+	@return Itemstate <Itemstate.clean: 6> or <Itemstate.dirty: 7>"""
 	if (state.itemstate[cup]['cleanstate'] == Itemstate.unknown):
-		if ((cup == 'teacup' + str(numcupstotal)) and (numcupstotal - numcupsknowndirty > 0)):
+		if ((cup == 'teacup' + str(TOTAL_NUMBER_OF_TEACUPS)) and (TOTAL_NUMBER_OF_TEACUPS - NUMBER_OF_DIRTY_TEACUPS > 0)):
 			return Itemstate.clean
 		return Itemstate(random.randint(6, 7))
 	else:
 		return state.itemstate[cup]['cleanstate']
 
-"""@brief: Changes the location of the robot.
-	@param: state current state
-	@param: robot robot
-	@param: location destination of the robot"""
 def goto(state, robot, location):
+	"""!@brief (Operator) Changes the location of the robot.
+	Returns a textual warning if the robot is already in this location.
+	@param state current state
+	@param robot robot
+	@param location destination of the robot
+	@return state Returns the state object (success) or
+	@return False In error case (fail)"""
 	if state.loc[robot] != location:
 		state.loc[robot] = location
 	else:
-		print("\n****Robot is allready at location - so goto does nothing!****")
+		print("\n****Robot is already at location " + location.name + " - so goto does nothing!****")
 	return state
 
-"""@brief: Item is accessible if the robot and the item have the same location (simplified)
-	@param: state current state
-	@param: robot robot
-	@param: item item"""
 def access(state, robot, item):
+	"""!@brief (Operator) Simple location check.
+	Item is considered as accessible if it has the same location as the robot (simplified).
+	@param state current state
+	@param robot robot
+	@param item item
+	@return state Returns the state object (success) or
+	@return False In error case (fail)"""
 	if state.loc[robot] == state.loc[item]:
-		#state.accessible[x] == Accessible.yes;
 		return state
 	else: 
 		print("\n****Cannot access object " + item + "****")
 		return False
 
-"""@brief: Check if an item has a specific value
-	@param: state current state
-	@param: item item
-	@param: key property of the item
-	@param: expectedvalue reference to check against"""
 def check(state, item, key, expectedvalue):
+	"""!@brief (Operator) Check if an item has a specific value.
+	@param state current state
+	@param item item
+	@param key property of the item e. g. 'cleanstate', 'fillstate', ...
+	@param expectedvalue reference to check against
+	@return state Returns the state object (success) or
+	@return False In error case (fail)"""
 	if state.itemstate[item][key] == expectedvalue:
 		return state
 	else:
-		print("****check of item " + item + " to state + " + exceptedvalue + " failed****")
+		print("****check of item " + item + " to state + " + exceptedvalue.name + " failed****")
 		return False
     
-"""@brief: Operator to open an item
-	@param: state current state
-	@param: robot robot
-	@param: item item to open"""
 def open(state, robot, item):
+	"""!@brief (Operator) Operator to open an item.
+	@param state current state
+	@param robot robot
+	@param item item to open
+	@return state Returns the state object (success) or
+	@return False In error case (fail)"""
 	if state.loc[robot] == state.loc[item]:
 		if state.robotarm[robot] == RobotArm.free:
 			if state.itemstate[item]['openstate'] == Itemstate.closed:
@@ -120,14 +146,16 @@ def open(state, robot, item):
 			print("****open item " + item + " failed, robot arm not free****")
 			return False
 	else: 
-		print("****open item " + item + " failed, robot not at location + " + state.loc[item] + " but at + " + state.loc[robot] + "****")	
+		print("****open item " + item + " failed, robot not at location + " + state.loc[item].name + " but at + " + state.loc[robot].name + "****")	
 		return False
 
-"""@brief: Operator to close an item
-	@param: state current state
-	@param: robot robot
-	@param: item item to close"""
 def close(state, robot, item):
+	"""!@brief (Operator) Operator to close an item.
+	@param state current state
+	@param robot robot
+	@param item item to close
+	@return state Returns the state object (success) or
+	@return False In error case (fail)"""
 	if state.loc[robot] == state.loc[item]:
 		if state.robotarm[robot] == RobotArm.free:
 			if state.itemstate[item]['openstate'] == Itemstate.open:
@@ -140,24 +168,28 @@ def close(state, robot, item):
 			print("****close item " + item + " failed, robot arm not free****")		
 			return False
 	else:
-		print("****close item " + item + " failed, robot not at location + " + state.loc[item] + " but at + " + state.loc[robot] + "****")	
+		print("****close item " + item + " failed, robot not at location + " + state.loc[item].name + " but at + " + state.loc[robot].name + "****")	
 		return False
 
-"""@brief: Determine if the item is full or empty
-	@param: state current state
-	@param: robot robot
-	@param: item item
-	@param: expectedvalue value it should have to go on"""
 def weigh(state, robot, item, expectedvalue):
+	"""!@brief (Operator) Determine if the item is full or empty.
+	@param state current state
+	@param robot robot
+	@param item item
+	@param expectedvalue The value it should have
+	@return state Returns the state object (success) or
+	@return False In error case (fail)"""
 	if state.itemstate[item]['fillstate'] == expectedvalue:
 		return state
 	else: return False
     
-"""@brief: Operator to grasp an item
-	@param: state current state
-	@param: robot robot
-	@param: item item to grasp"""
 def grasp(state, robot, item):
+	"""!@brief (Operator) Operator to grasp an item.
+	@param state current state
+	@param robot robot
+	@param item item to grasp
+	@return state Returns the state object (success) or
+	@return False In error case (fail)"""
 	print(state.robotarm[robot])
 	if state.loc[robot] == state.loc[item]:
 		if state.robotarm[robot] == RobotArm.free:
@@ -168,33 +200,37 @@ def grasp(state, robot, item):
 			print("****grasp item " + item + " failed, robot arm not free****")			
 			return False
 	else:
-		print("****grasp item " + item + " failed, robot not at location + " + state.loc[item] + " but at + " + state.loc[robot] + "****")		
+		print("****grasp item " + item + " failed, robot not at location + " + state.loc[item].name + " but at + " + state.loc[robot].name + "****")		
 		return False
 
-"""@brief: Operator to grasp an item
-	@param: state current state
-	@param: robot robot
-	@param: item item to grasp
-	@param: location location to place the item on"""
 def place(state, robot, item, location):
+	"""!@brief (Operator) Operator to grasp an item.
+	@param state current state
+	@param robot robot
+	@param item The item the robot is currently holding
+	@param location The location to place the item on
+	@return state Returns the state object (success) or
+	@return False In error case (fail)"""
 	if state.loc[robot] == location:
 		if state.robotarm[robot] == RobotArm[item]:
 			state.loc[item] = location
 			state.robotarm[robot] = RobotArm.free
 			return state
 		else:
-			print("****place item " + item + " at " + location + " failed, robot arm not holding item****")			
+			print("****place item " + item + " at " + location.name + " failed, robot arm not holding item****")			
 			return False
 	else:
-		print("****place item " + item + " failed, robot not at location + " + location + " but at + " + state.loc[robot] + "****")		
+		print("****place item " + item + " failed, robot not at location + " + location.name + " but at + " + state.loc[robot] + "****")		
 		return False
 
-"""@brief: Place teabag from robot arm into a teacup
-	@param: state current state
-	@param: robot robot
-	@param: targetitem targetitem
-	@param: robotitem item the robot is holding"""
 def placein(state, robot, teacup, teabag):
+	"""!@brief (Operator) Place teabag from robot arm into a teacup.
+	@param state current state
+	@param robot robot
+	@param teacup The teacup at the location of the robot
+	@param teabag The teabag the robot is currently holding
+	@return state Returns the state object (success) or
+	@return False In error case (fail)"""
 	if state.loc[robot] == state.loc[teacup]:
 		if state.robotarm[robot] == RobotArm[teabag]:
 			if state.loc[teacup] == Location.countertop:
@@ -202,20 +238,23 @@ def placein(state, robot, teacup, teabag):
 				state.robotarm[robot] = RobotArm.free
 				return state
 			else:
-				print("****placein item " + teabag + "in " + teacup + " failed, " + teacup + " not at location countertop but at + " + state.loc[teacup] + "****")				
+				print("****placein item " + teabag + "in " + teacup + " failed, " + teacup + " not at location countertop but at + " + state.loc[teacup].name + "****")				
 				return False
 		else:
-			print("****placein item " + teabag + "in " + teacup + " failed, robot arm instead holding" + state.robotarm[robot] + "****")				
+			print("****placein item " + teabag + "in " + teacup + " failed, robot arm instead holding" + state.robotarm[robot].name + "****")				
 			return False
 	else:
-		print("****placein item " + teabag + "in " + teacup + " failed, robot not at location " + state.loc[teacup] + "but at + " + state.loc[robot] + "****")		
+		print("****placein item " + teabag + "in " + teacup + " failed, robot not at location " + state.loc[teacup].name + "but at + " + state.loc[robot].name + "****")		
 		return False
 
-"""@brief: Operator to boil water
-	@param: state current state
-	@param: robot robot
-	@param: item item on top of the kettlebase"""
 def turnonkettlebase(state, robot, item):
+	"""!@brief (Operator) Turn on the kettlebase.
+	Make hot water if the kettle is on top of it and full. Robotarm has to be empty in order to turn on the kettlebase.
+	@param state current state
+	@param robot robot
+	@param item The item on top of the kettlebase
+	@return state Returns the state object (success) or
+	@return False In error case (fail)"""
 	if state.loc[robot] == Location.kettlebase:
 		if state.robotarm[robot] == RobotArm.free:
 			if state.loc[item] == Location.kettlebase:
@@ -226,16 +265,22 @@ def turnonkettlebase(state, robot, item):
 					print("****turnonkettlebase failed, kettle not full****")					
 					return False
 			else:
-				print("****turnonkettlebase failed" + item + "not at kettlebase but at " + state.loc[kettle] + "****")				
+				print("****turnonkettlebase failed" + item + "not at kettlebase but at " + state.loc[kettle].name + "****")				
 				return False
 		else:
-			print("****turnonkettlebase failed, robot arm not free but holding" + state.robotarm[robot] +  "****")
+			print("****turnonkettlebase failed, robot arm not free but holding" + state.robotarm[robot].name +  "****")
 			return False
 	else:
-		print("****turnonkettlebase failed, robot not at location kettlebase but at + " + state.loc[robot] + "****")			
+		print("****turnonkettlebase failed, robot not at location kettlebase but at + " + state.loc[robot].name + "****")			
 		return False
 
 def opencoldtap(state, robot):
+	"""!@brief (Operator) Open the coldtap.
+	TODO location check for kettle?!?! add param for item?
+	@param state current state
+	@param robot robot
+	@return state Returns the state object (success) or
+	@return False In error case (fail)"""
 	if state.loc[robot] == state.loc['coldtap']:
 		if state.robotarm[robot] == RobotArm.free:
 			if state.itemstate['coldtap']['openstate'] == Itemstate.closed:
@@ -250,13 +295,17 @@ def opencoldtap(state, robot):
 				print("****opencoldtap failed, coldtap allready open****")			
 				return False
 		else:
-			print("****opencoldtab failed, robot arm not free but holding + " + state.robotarm[robot] + "****")
+			print("****opencoldtab failed, robot arm not free but holding + " + state.robotarm[robot].name + "****")
 			return False
 	else:
-		print("****opencoldtab failed, robot not at location coldtap but at + " + state.loc[robot] + "****")	
+		print("****opencoldtab failed, robot not at location coldtap but at + " + state.loc[robot].name + "****")	
 		return False
 
 def pourintocup(state, robot, teacup):
+	"""!@brief (Operator) Pour water into the teacup.
+	@param state current state
+	@param robot robot
+	@param teacup teacup"""
 	if state.loc[robot] == state.loc[teacup]:
 		if state.robotarm[robot] == RobotArm.kettle:
 			if state.itemstate['kettle']['openstate'] == Itemstate.open:
@@ -277,10 +326,10 @@ def pourintocup(state, robot, teacup):
 				print("****pourintocup failed, kettle not open****")
 				return False
 		else: 
-			print("****pourintocup failed, robot not holding kettle but " + state.robotarm[robot] + "****")
+			print("****pourintocup failed, robot not holding kettle but " + state.robotarm[robot].name + "****")
 			return False
 	else: 
-		print("****pourintocup failed, robot not at location " + state.loc[teacup] + " but at + " + state.loc[robot] + "****")
+		print("****pourintocup failed, robot not at location " + state.loc[teacup].name + " but at + " + state.loc[robot].name + "****")
 		return False
 	
 pyhop.declare_operators(goto, open, grasp, place, close, check, weigh, placein, turnonkettlebase, access, opencoldtap, pourintocup)
@@ -310,9 +359,7 @@ def preparehotwater(state, robot):
 				tasks = [('taskboilwater', robot)]
 			return tasks 
 	else:
-		# Everything
 		return [('tasplacekettleinsink', robot), ('taskfillkettle', robot), ('taskplacekettleonbase', robot), ('taskboilwater', robot)]
-	"""('taskcheckkettlefill', robot), removed"""
 pyhop.declare_methods('taskpreparehotwater', preparehotwater)
 
 def checkkettlefill(state, robot):
@@ -342,7 +389,7 @@ pyhop.declare_methods('taskboilwater', boilwater)
 """prepare cup methods"""
 
 def getcleancup(state, robot):
-	if numcupstotal == 0:
+	if TOTAL_NUMBER_OF_TEACUPS == 0:
 		print("\n****No cups, no Tea!!!!!1111Elf****")
 		return False
 	else:
@@ -354,7 +401,7 @@ pyhop.declare_methods('taskgetcleancup', getcleancup)
 def checkcupdirty(state, robot):
 	task = []
 	teacup = ""
-	for x in range(1, numcupstotal + 1):
+	for x in range(1, TOTAL_NUMBER_OF_TEACUPS + 1):
 		teacup = 'teacup' + str(x)
 		if(state.itemstate[teacup]['cleanstate']!=Itemstate.taken):
 			teacuploc = state.loc[teacup]
@@ -410,66 +457,68 @@ print('')
 pyhop.print_methods()
 print('')
 
-state = pyhop.State('Teststate')
+#state = pyhop.State('Teststate')
+
+def test1():
+	"""!@brief (Helper function) Create a state object for test 1.
+	@return state state
+	"""
+	state = pyhop.State('Test1')
+	return state
 
 def test2():
-
+	"""!@brief (Helper function) Create a state object for test 2.
+	@return state state
+	"""
+	state = pyhop.State('Test2')
 	state.loc = {'robot':Location.startlocation, 'coldtap':Location.kitchensink, 'kettle':Location.kettlebase, 'teabag':Location.countertop}
 	teacups = 1
-	while teacups <= numcupstotal:
+	while teacups <= TOTAL_NUMBER_OF_TEACUPS:
 		state.loc['teacup'+str(teacups)] = Location((random.randint(6, 13)))
 		teacups = teacups + 1
 		
 	state.accessible = {'kettle':Accessible.yes, 'kettlebase':Accessible.yes, 'coldtap':Accessible.yes, 'teabag':Accessible.yes}
 	teacups = 1
-	while teacups <= numcupstotal:
+	while teacups <= TOTAL_NUMBER_OF_TEACUPS:
 		state.accessible['teacup'+str(teacups)] = Accessible.yes
 		teacups = teacups + 1
 		
 	state.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}, 'coldtap':{'openstate':Itemstate.closed}}
 
-	for x in range(1, numcupstotal + 1):
+	for x in range(1, TOTAL_NUMBER_OF_TEACUPS + 1):
 		state.itemstate['teacup'+str(x)] = {'cleanstate':Itemstate.unknown, 'fillstate':Itemstate.empty, 'tempstate':Itemstate.cold}
 	dirtycups = 0
-	while dirtycups <= numcupsknowndirty:
-		cup = 'teacup'+str(random.randint(1,numcupstotal))
+	while dirtycups <= NUMBER_OF_DIRTY_TEACUPS:
+		cup = 'teacup'+str(random.randint(1,TOTAL_NUMBER_OF_TEACUPS))
 		if(state.itemstate[cup]['cleanstate'] == Itemstate.unknown):
 			state.itemstate[cup]['cleanstate'] = Itemstate.dirty
 			dirtycups = dirtycups + 1
 	"""cleancups = 0
 	while cleancups <= numcupsknownclean:
-		cup = 'teacup'+str(random.randint(1,numcupstotal))
+		cup = 'teacup'+str(random.randint(1,TOTAL_NUMBER_OF_TEACUPS))
 		if(state2.itemstate[cup]['cleanstate'] == Itemstate.unknown):
 			state2.itemstate[cup]['cleanstate'] = Itemstate.clean
 			cleancups = cleancups + 1"""
-
 		
 	state.robotarm = {'robot':RobotArm.free}
 	state.currentcup = ""
+	return state
 
-	goal = pyhop.Goal('goal 2')
-	goal.loc = {'robot':Location.startlocation, 'kettle':Location.kettlebase, 'teabag':Location.inteacup}
-	goal.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate': Itemstate.empty}, 'coldtap':{'openstate':Itemstate.closed}}
-	goal.robotarm = {'robot':RobotArm.free}
-	pyhop.print_goal(goal)
+	#goal = pyhop.Goal('goal 2')
+	#goal.loc = {'robot':Location.startlocation, 'kettle':Location.kettlebase, 'teabag':Location.inteacup}
+	#goal.itemstate = {'kettle':{'openstate':Itemstate.closed, 'fillstate': Itemstate.empty}, 'coldtap':{'openstate':Itemstate.closed}}
+	#goal.robotarm = {'robot':RobotArm.free}
+	#pyhop.print_goal(goal)
+
+def test3():
+	"""!@brief (Helper function) Create a state object for test 3.
+	@return state state
+	"""
+	state = pyhop.State('Test3')
+	return state
 
 print('')
-print("""
-********************************************************************************
-Call pyhop.pyhop(state1,[('taskmaketea','robot','teabag')]) with different verbosity levels
-********************************************************************************
-""")
+print('''Running: pyhop.pyhop(state,[('taskmaketea','robot','teabag', 2)],verbose=2)''')
 print('')
 
-"""print("- If verbose=0 (the default), Pyhop returns the solution but prints nothing.\n")
-pyhop.pyhop(state1,[('taskmaketea','robot','teabag')])
-
-print('- If verbose=1, Pyhop prints the problem and solution, and returns the solution:')
-pyhop.pyhop(state1,[('taskmaketea','robot','teabag')],verbose=1)
-
-print('- If verbose=2, Pyhop also prints a note at each recursive call:')
-pyhop.pyhop(state1,[('taskmaketea','robot','teabag')],verbose=2)"""
-
-print('- If verbose=3, Pyhop also prints the intermediate states:')
-test2()
-pyhop.pyhop(state,[('taskmaketea','robot','teabag', 2)],verbose=2)
+pyhop.pyhop(test2(),[('taskmaketea','robot','teabag', 2)],verbose=2)
