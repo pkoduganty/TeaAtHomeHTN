@@ -12,9 +12,11 @@ Python 3.4 enum backport
 https://pypi.python.org/pypi/enum34
 
 ### Running TeaAtHome
-From Python console:
+From Python console run the specific test case:
 
-    execfile('teaathome.py')
+    execfile('test1.py')
+	execfile('test2.py')
+	execfile('test2.py')
 
 ---
 
