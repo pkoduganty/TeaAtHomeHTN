@@ -1,7 +1,7 @@
 TeaAtHomeHTN
 ============
 
-Status: Work in progress
+Status: Almost finished ;)
 
 ### Introduction
 HTN planner "Pyhop" with a simple example "making tea at home" for the planning and scheduling course. Developed in Python version 2.7.
@@ -9,7 +9,12 @@ HTN planner "Pyhop" with a simple example "making tea at home" for the planning 
 
 ### Dependencies
 Python 3.4 enum backport
+
 https://pypi.python.org/pypi/enum34
+
+There are several other enum libraries for python, make sure you have this one above!
+
+In most cases, we use enumerations instead of strings to make it more robust against errors, especially against typos.
 
 ### Running TeaAtHome
 From Python console run the specific test case:
@@ -17,6 +22,8 @@ From Python console run the specific test case:
     execfile('test1.py')
 	execfile('test2.py')
 	execfile('test2.py')
+
+The log file for each test is saved to the "logs" directory within your local repository.
 
 ---
 
