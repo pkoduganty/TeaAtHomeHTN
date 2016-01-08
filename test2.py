@@ -5,8 +5,6 @@ import sys
 
 sys.stdout = open('logs/test2.log', 'w')
 
-pyhop.declare_operators(teaathome.goto, teaathome.openitem, teaathome.grasp, teaathome.place, teaathome.close, teaathome.check, teaathome.weigh, teaathome.placein, teaathome.turnonkettlebase, teaathome.access, teaathome.opencoldtap, teaathome.pourintocup)
-pyhop.declare_methods('taskmaketea', teaathome.maketea)
 print('')
 pyhop.print_operators()
 print('')
@@ -62,7 +60,7 @@ def test2():
 print('''Running: pyhop.pyhop(test2(),[('taskmaketea','robot','teabag', 2)],verbose=2)''')
 print('')
 
-pyhop.pyhop(test2(),[('taskmaketea','robot','teabag', 2)],verbose=2)
+pyhop.pyhop(teaathome.setupRobotArm(test2()),[('taskmaketea','robot','teabag', 2)],verbose=2)
 
 sys.stdout.close()
 

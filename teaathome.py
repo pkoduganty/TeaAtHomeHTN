@@ -33,12 +33,6 @@ class RobotArm(Enum):
 	kettle = 1
 	teabag = 2
 
-teacups = []
-for x in range(1, state.TOTAL_NUMBER_OF_TEACUPS + 1):
-	teacups = teacups + ['teacup' + str(x)]
-teacups = [m.name for m in RobotArm] +  teacups
-RobotArm = Enum('RobotArm', teacups)
-
 class Location(Enum):
 	'''!@brief Properties for items which can be moved.
 	We do NOT use a hierarchy of locations (e.g. multiple shelfs in a cupboard).
@@ -329,6 +323,8 @@ def pourintocup(state, robot, teacup):
 		print("****pourintocup failed, robot not at location " + state.loc[teacup].name + " but at + " + state.loc[robot].name + "****")
 		return False
 
+pyhop.declare_operators(goto, openitem, grasp, place, close, check, weigh, placein, turnonkettlebase, access, opencoldtap, pourintocup)
+
 def maketea(state, robot, teabag, number):
 	task = [('taskpreparehotwater', robot), ('taskgetcleancup', robot), ('taskfinalizetea', robot, teabag)]
 	teas = 1
@@ -336,6 +332,9 @@ def maketea(state, robot, teabag, number):
 		task = task + task
 		teas = teas + 1
 	return task
+
+pyhop.declare_methods('taskmaketea', maketea)
+
 
 """Prepare Kettle methods"""
 
@@ -444,3 +443,10 @@ def brewtea(state, robot, teabag):
 	return[('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('openitem', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.countertop), ('pourintocup', robot, state.currentcup), ('goto', robot, Location.kettlebase), ('place', robot, 'kettle', Location.kettlebase), ('close', robot, 'kettle')]
 pyhop.declare_methods('taskbrewtea', brewtea)
 
+def setupRobotArm(state):
+	teacups = []
+	for x in range(1, state.TOTAL_NUMBER_OF_TEACUPS + 1):
+		teacups = teacups + ['teacup' + str(x)]
+		teacups = [m.name for m in RobotArm] +  teacups
+		RobotArm = Enum('RobotArm', teacups)
+	return state
