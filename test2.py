@@ -61,6 +61,8 @@ def test2():
 print('''Running: pyhop.pyhop(test2(),[('taskmaketea','robot','teabag', 2)],verbose=2)''')
 print('')
 
+teaathome.setupTeaAtHome()
+
 pyhop.pyhop(teaathome.setupRobotArm(test2()),[('taskmaketea','robot','teabag', 2)],verbose=2)
 
 sys.stdout.close()

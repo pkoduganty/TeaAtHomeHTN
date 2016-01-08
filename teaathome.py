@@ -23,7 +23,6 @@ class Itemstate(Enum):
 	unknown = 8
 	taken = 9
 
-global RobotArm
 #class RobotArm(Enum):
 #	'''!@brief Properties of the robot arm.
 #	All items the robot can carry with his arm have a corresponding enum field in RobotArm.
@@ -324,8 +323,6 @@ def pourintocup(state, robot, teacup):
 		print("****pourintocup failed, robot not at location " + state.loc[teacup].name + " but at + " + state.loc[robot].name + "****")
 		return False
 
-pyhop.declare_operators(goto, openitem, grasp, place, close, check, weigh, placein, turnonkettlebase, access, opencoldtap, pourintocup)
-
 def maketea(state, robot, teabag, number):
 	task = [('taskpreparehotwater', robot), ('taskgetcleancup', robot), ('taskfinalizetea', robot, teabag)]
 	teas = 1
@@ -333,8 +330,6 @@ def maketea(state, robot, teabag, number):
 		task = task + task
 		teas = teas + 1
 	return task
-
-pyhop.declare_methods('taskmaketea', maketea)
 
 
 """Prepare Kettle methods"""
@@ -351,31 +346,25 @@ def preparehotwater(state, robot):
 			return tasks 
 	else:
 		return [('tasplacekettleinsink', robot), ('taskfillkettle', robot), ('taskplacekettleonbase', robot), ('taskboilwater', robot)]
-pyhop.declare_methods('taskpreparehotwater', preparehotwater)
 
 def checkkettlefill(state, robot):
 	return [('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('check', 'kettle', 'openstate', Itemstate.closed), ('grasp', robot, 'kettle'), ('weigh', robot, 'kettle', Itemstate.empty), ('place', robot, 'kettle', Location.kettlebase)]
-pyhop.declare_methods('taskcheckkettlefill', checkkettlefill)
 
 def placekettleinsink(state, robot):
 	return [('goto', robot, state.loc['kettle']), ('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.kitchensink), ('place', robot, 'kettle', Location.kitchensink)]
-pyhop.declare_methods('tasplacekettleinsink', placekettleinsink)
 
 def fillkettle(state, robot):
 	return [('openitem', robot, 'kettle'), ('opencoldtap', robot), ('close', robot, 'coldtap'), ('close', robot, 'kettle')]
-pyhop.declare_methods('taskfillkettle', fillkettle)
 
 def placekettleonbase(state, robot):
 	return [ ('taskbringkettletobase', robot), ('place', robot, 'kettle', Location.kettlebase)]
-pyhop.declare_methods('taskplacekettleonbase', placekettleonbase)
 
 def bringkettletobase(state, robot):
 	return [('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.kettlebase)]
-pyhop.declare_methods('taskbringkettletobase', bringkettletobase)
 
 def boilwater(state, robot):
 	return [ ('goto', robot, state.loc['kettle']), ('turnonkettlebase', robot, 'kettle')]
-pyhop.declare_methods('taskboilwater', boilwater)
+
 
 """prepare cup methods"""
 
@@ -385,7 +374,6 @@ def getcleancup(state, robot):
 		return False
 	else:
 		return [('taskcheckcupdirty', robot)]
-pyhop.declare_methods('taskgetcleancup', getcleancup)
 
 """ damit plan failed, muessten -numcups- alternative methoden fuer check geschrieben werden"""
 
@@ -412,44 +400,58 @@ def checkcupdirty(state, robot):
 	else: 
 		print("\n****I found only dirty cups, you have to clean some first!****")
 		return False
-pyhop.declare_methods('taskcheckcupdirty', checkcupdirty)
+
 
 def placecup(state, robot, teacup):
 	tasks = [('goto', robot, Location.countertop), ('place', robot, teacup, Location.countertop)]
 	return tasks
-pyhop.declare_methods('taskplacecup', placecup)
 
 """brew tea"""
 
 def finalizetea(state, robot, teabag):
 	return[('taskprepareteabag', robot, teabag), ('taskbrewtea', robot, teabag)]
-pyhop.declare_methods('taskfinalizetea', finalizetea)
 
 def prepareteabag(state, robot, teabag):
 	return [('taskgetteabag', robot, teabag), ('taskplacebagincup', robot, teabag) ]
-pyhop.declare_methods('taskprepareteabag', prepareteabag)
 
 def getteabag(state, robot, teabag):
 	return [('goto', robot, state.loc['teabag']), ('access', robot, 'teabag'), ('grasp', robot, 'teabag')]
-pyhop.declare_methods('taskgetteabag', getteabag)
 
 def placebagincup(state, robot, teabag):
 	if(state.currentcup == ""):
 		return False
 	state.itemstate[state.currentcup]['cleanstate'] = Itemstate.taken
 	return[('goto', robot, Location.countertop), ('access', robot, state.currentcup), ('placein', robot, state.currentcup, teabag)]
-pyhop.declare_methods('taskplacebagincup', placebagincup)
 
 def brewtea(state, robot, teabag):
 	return[('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('openitem', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.countertop), ('pourintocup', robot, state.currentcup), ('goto', robot, Location.kettlebase), ('place', robot, 'kettle', Location.kettlebase), ('close', robot, 'kettle')]
-pyhop.declare_methods('taskbrewtea', brewtea)
+
+def setupTeaAtHome():
+	pyhop.declare_operators(goto, openitem, grasp, place, close, check, weigh, placein, turnonkettlebase, access, opencoldtap, pourintocup)
+	pyhop.declare_methods('taskmaketea', maketea)
+	pyhop.declare_methods('taskpreparehotwater', preparehotwater)
+	pyhop.declare_methods('taskcheckkettlefill', checkkettlefill)
+	pyhop.declare_methods('tasplacekettleinsink', placekettleinsink)
+	pyhop.declare_methods('taskfillkettle', fillkettle)
+	pyhop.declare_methods('taskplacekettleonbase', placekettleonbase)
+	pyhop.declare_methods('taskbringkettletobase', bringkettletobase)
+	pyhop.declare_methods('taskboilwater', boilwater)
+	pyhop.declare_methods('taskgetcleancup', getcleancup)
+	pyhop.declare_methods('taskcheckcupdirty', checkcupdirty)
+	pyhop.declare_methods('taskplacecup', placecup)
+	pyhop.declare_methods('taskfinalizetea', finalizetea)
+	pyhop.declare_methods('taskprepareteabag', prepareteabag)
+	pyhop.declare_methods('taskgetteabag', getteabag)
+	pyhop.declare_methods('taskplacebagincup', placebagincup)
+	pyhop.declare_methods('taskbrewtea', brewtea)
 
 def setupRobotArm(state):
+	global RobotArm
 	teacups = []
+	teacups = ['free'] + ['kettle'] + ['teabag'] +  teacups
 	for x in range(1, state.TOTAL_NUMBER_OF_TEACUPS + 1):
 		teacups = teacups + ['teacup' + str(x)]
-		teacups = ['free'] + ['kettle'] + ['teabag'] +  teacups
-		teacups = [m.name for m in RobotArm] +  teacups
-		RobotArm = Enum(teacups)
+		teacups = [m.name for m in Enum] +  teacups
+	RobotArm = Enum('RobotArm', teacups)
 	state.robotarm = {'robot':RobotArm.free}
 	return state
