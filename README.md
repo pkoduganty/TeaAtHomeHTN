@@ -21,7 +21,7 @@ From Python console run the specific test case:
 
     execfile('test1.py')
 	execfile('test2.py')
-	execfile('test2.py')
+	execfile('test3.py')
 
 The log file for each test is saved to the "logs" directory within your local repository.
 

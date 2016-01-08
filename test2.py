@@ -7,12 +7,6 @@ reload(pyhop)
 
 sys.stdout = open('logs/test2.log', 'w')
 
-print('')
-pyhop.print_operators()
-print('')
-pyhop.print_methods()
-print('')
-
 def test2():
 	"""!@brief (Helper function) Create a state object for test 2.
 	@return state state
@@ -58,10 +52,14 @@ def test2():
 	#goal.robotarm = {'robot':RobotArm.free}
 	#pyhop.print_goal(goal)
 
-print('''Running: pyhop.pyhop(test2(),[('taskmaketea','robot','teabag', 2)],verbose=2)''')
+print('''Running: pyhop.pyhop(teaathome.setupRobotArm(test2()),[('taskmaketea','robot','teabag', 2)],verbose=2)''')
 print('')
 
 teaathome.setupTeaAtHome()
+pyhop.print_operators()
+print('')
+pyhop.print_methods()
+print('')
 
 pyhop.pyhop(teaathome.setupRobotArm(test2()),[('taskmaketea','robot','teabag', 2)],verbose=2)
 
