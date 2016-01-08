@@ -23,15 +23,16 @@ class Itemstate(Enum):
 	unknown = 8
 	taken = 9
 
-class RobotArm(Enum):
-	'''!@brief Properties of the robot arm.
-	All items the robot can carry with his arm have a corresponding enum field in RobotArm.
-	Because of a dynamic number of teacups, the teacup fields are created programmatically and RobotArm is recreated during runtime.
-	E.g. RobotArm.teacup1, RobotArm.teacup2, ..., RobotArm.teacup75
-	'''
-	free = 0
-	kettle = 1
-	teabag = 2
+global RobotArm
+#class RobotArm(Enum):
+#	'''!@brief Properties of the robot arm.
+#	All items the robot can carry with his arm have a corresponding enum field in RobotArm.
+#	Because of a dynamic number of teacups, the teacup fields are created programmatically and RobotArm is recreated during runtime.
+#	E.g. RobotArm.teacup1, RobotArm.teacup2, ..., RobotArm.teacup75
+#	'''
+#	free = 0
+#	kettle = 1
+#	teabag = 2
 
 class Location(Enum):
 	'''!@brief Properties for items which can be moved.
@@ -447,6 +448,8 @@ def setupRobotArm(state):
 	teacups = []
 	for x in range(1, state.TOTAL_NUMBER_OF_TEACUPS + 1):
 		teacups = teacups + ['teacup' + str(x)]
+		teacups = ['free'] + ['kettle'] + ['teabag'] +  teacups
 		teacups = [m.name for m in RobotArm] +  teacups
-		RobotArm = Enum('RobotArm', teacups)
+		RobotArm = Enum(teacups)
+	state.robotarm = {'robot':RobotArm.free}
 	return state

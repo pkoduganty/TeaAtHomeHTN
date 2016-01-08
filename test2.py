@@ -2,6 +2,8 @@ import teaathome
 import pyhop
 import random
 import sys
+reload(teaathome)
+reload(pyhop)
 
 sys.stdout = open('logs/test2.log', 'w')
 
@@ -47,7 +49,6 @@ def test2():
 			state2.itemstate[cup]['cleanstate'] = Itemstate.clean
 			cleancups = cleancups + 1"""
 		
-	state.robotarm = {'robot':teaathome.RobotArm.free}
 	state.currentcup = ""
 	return state
 

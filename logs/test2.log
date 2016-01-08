@@ -1,23 +1,9 @@
 
-OPERATORS: turnonkettlebase, openitem, goto, placein, access, opencoldtap, place, close, grasp, weigh, check, pourintocup
+OPERATORS: 
 
 TASK:                    METHODS:
-taskcheckkettlefill      checkkettlefill
-taskpreparehotwater      preparehotwater
-taskboilwater            boilwater
-taskplacecup             placecup
-taskbringkettletobase    bringkettletobase
-taskmaketea              maketea
-taskgetteabag            getteabag
-tasplacekettleinsink     placekettleinsink
-taskfillkettle           fillkettle
-taskplacekettleonbase    placekettleonbase
-taskbrewtea              brewtea
-taskfinalizetea          finalizetea
-taskcheckcupdirty        checkcupdirty
-taskgetcleancup          getcleancup
-taskplacebagincup        placebagincup
-taskprepareteabag        prepareteabag
 
 Running: pyhop.pyhop(test2(),[('taskmaketea','robot','teabag', 2)],verbose=2)
 
+<built-in function globals>
+<built-in function globals>
