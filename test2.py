@@ -12,7 +12,7 @@ def test2():
 	@return state state
 	"""
 	state = pyhop.State('Test2')
-	state.TOTAL_NUMBER_OF_TEACUPS = 77
+	state.TOTAL_NUMBER_OF_TEACUPS = 76
 	state.NUMBER_OF_DIRTY_TEACUPS = 30
 	state.loc = {'robot':teaathome.Location.startlocation, 'coldtap':teaathome.Location.kitchensink, 'kettle':teaathome.Location.kettlebase, 'teabag':teaathome.Location.countertop}
 	teacups = 1
@@ -30,7 +30,7 @@ def test2():
 
 	for x in range(1, state.TOTAL_NUMBER_OF_TEACUPS + 1):
 		state.itemstate['teacup'+str(x)] = {'cleanstate':teaathome.Itemstate.unknown, 'fillstate':teaathome.Itemstate.empty, 'tempstate':teaathome.Itemstate.cold}
-	dirtycups = 0
+	dirtycups = 1
 	while dirtycups <= state.NUMBER_OF_DIRTY_TEACUPS:
 		cup = 'teacup'+str(random.randint(1,state.TOTAL_NUMBER_OF_TEACUPS))
 		if(state.itemstate[cup]['cleanstate'] == teaathome.Itemstate.unknown):
@@ -52,7 +52,7 @@ def test2():
 	#goal.robotarm = {'robot':RobotArm.free}
 	#pyhop.print_goal(goal)
 
-print('''Running: pyhop.pyhop(teaathome.setupRobotArm(test2()),[('taskmaketea','robot','teabag', 2)],verbose=2)''')
+print('''Running: pyhop.pyhop(teaathome.setupRobotArm(test2()),[('taskmaketea','robot','teabag', 1)],verbose=2)''')
 print('')
 
 teaathome.setupTeaAtHome()
@@ -61,7 +61,7 @@ print('')
 pyhop.print_methods()
 print('')
 
-pyhop.pyhop(teaathome.setupRobotArm(test2()),[('taskmaketea','robot','teabag', 2)],verbose=2)
+pyhop.pyhop(teaathome.setupRobotArm(test2()),[('taskmaketea','robot','teabag', 1)],verbose=2)
 
 sys.stdout.close()
 
