@@ -355,6 +355,9 @@ def placekettleinsink(state, robot):
 
 def fillkettle(state, robot):
 	return [('openitem', robot, 'kettle'), ('opencoldtap', robot), ('close', robot, 'coldtap'), ('close', robot, 'kettle')]
+	
+def fillkettle_kopen(state, robot):
+	return [('opencoldtap', robot), ('close', robot, 'coldtap'), ('close', robot, 'kettle')]
 
 def placekettleonbase(state, robot):
 	return [ ('taskbringkettletobase', robot), ('place', robot, 'kettle', Location.kettlebase)]
@@ -387,11 +390,11 @@ def checkcupdirty(state, robot):
 			task = task + [('goto', robot, state.loc[teacup]), ('access', robot, teacup), ('grasp', robot, teacup)]
 			state.itemstate[teacup]['cleanstate'] = getrandomcupstate(state, teacup)
 			if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
-				print ("\nCup is clean!\n")
+				print (teacup + " is clean!\n")
 				task = task + [('taskplacecup', robot, teacup)]
 				state.currentcup = teacup
 				return task 
-			print ("\nCup is dirty!\n")
+			print (teacup + " is dirty!\n ")
 			task = task + [('place', robot, teacup, teacuploc)]
 			
 	if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
@@ -432,7 +435,7 @@ def setupTeaAtHome():
 	pyhop.declare_methods('taskpreparehotwater', preparehotwater)
 	pyhop.declare_methods('taskcheckkettlefill', checkkettlefill)
 	pyhop.declare_methods('tasplacekettleinsink', placekettleinsink)
-	pyhop.declare_methods('taskfillkettle', fillkettle)
+	pyhop.declare_methods('taskfillkettle', fillkettle, fillkettle_kopen)
 	pyhop.declare_methods('taskplacekettleonbase', placekettleonbase)
 	pyhop.declare_methods('taskbringkettletobase', bringkettletobase)
 	pyhop.declare_methods('taskboilwater', boilwater)
