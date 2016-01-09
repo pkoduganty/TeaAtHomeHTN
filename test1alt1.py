@@ -11,7 +11,7 @@ def test1():
 	"""!@brief (Helper function) Create a state object for test 1.
 	@return state state
 	"""
-	state = pyhop.State('Test2')
+	state = pyhop.State('Test1 alt 1')
 	state.TOTAL_NUMBER_OF_TEACUPS = 1
 	state.NUMBER_OF_DIRTY_TEACUPS = 0
 	state.loc = {'robot':teaathome.Location.startlocation, 'teacup1':teaathome.Location.countertop, 'coldtap':teaathome.Location.kitchensink, 'kettle':teaathome.Location.kettlebase, 'teabag':teaathome.Location.countertop}

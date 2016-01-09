@@ -21,7 +21,7 @@ taskplacebagincup        placebagincup
 taskprepareteabag        prepareteabag
 
 ** pyhop, verbose=2: **
-   state = Test2
+   state = Test1
    tasks = [('taskmaketea', 'robot', 'teabag', 1)]
 depth 0 tasks [('taskmaketea', 'robot', 'teabag', 1)]
 depth 1 tasks [('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
