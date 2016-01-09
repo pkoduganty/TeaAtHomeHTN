@@ -87,7 +87,7 @@ def goto(state, robot, location):
 	if state.loc[robot] != location:
 		state.loc[robot] = location
 	else:
-		print("\n****Robot is already at location " + location.name + " - so goto does nothing!****")
+		print("****Robot is already at location " + location.name + " - so goto does nothing!****")
 	return state
 
 def access(state, robot, item):
@@ -101,7 +101,7 @@ def access(state, robot, item):
 	if state.loc[robot] == state.loc[item]:
 		return state
 	else: 
-		print("\n****Cannot access object " + item + "****")
+		print("****Cannot access object " + item + "****")
 		return False
 
 def check(state, item, key, expectedvalue):
@@ -181,7 +181,6 @@ def grasp(state, robot, item):
 	@param item item to grasp
 	@return state Returns the state object (success) or
 	@return False In error case (fail)"""
-	print(state.robotarm[robot])
 	if state.loc[robot] == state.loc[item]:
 		if state.robotarm[robot] == RobotArm.free:
 			state.robotarm[robot] = RobotArm[item]
@@ -335,18 +334,32 @@ def maketea(state, robot, teabag, number):
 """Prepare Kettle methods"""
 
 def preparehotwater(state, robot):
-	if (state.itemstate['kettle']['fillstate'] == Itemstate.full):
-		if (state.itemstate['kettle']['tempstate'] == Itemstate.hot):
-			return []
-		else:
-			if (state.loc['kettle'] != Location.kettlebase):
-				tasks = [('goto', robot, 'kettle'), ('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, 'kettlebase'), ('place', robot, 'kettle', 'kettlebase'), ('taskboilwater', robot)]
-			else:
-				tasks = [('taskboilwater', robot)]
-			return tasks 
-	else:
-		return [('tasplacekettleinsink', robot), ('taskfillkettle', robot), ('taskplacekettleonbase', robot), ('taskboilwater', robot)]
+	return [('tasplacekettleinsink', robot), ('taskfillkettle', robot), ('taskplacekettleonbase', robot), ('taskboilwater', robot)]
 
+def preparehotwater_fullk(state, robot):
+#if (state.itemstate['kettle']['fillstate'] == Itemstate.full):
+	if (state.loc['kettle'] != Location.kettlebase):
+		tasks = [('goto', robot, 'kettle'), ('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, 'kettlebase'), ('place', robot, 'kettle', 'kettlebase'), ('taskboilwater', robot)]
+		return tasks 
+	else:
+		return [('goto', robot, 'kettlebase'), ('taskboilwater', robot)]
+#else:
+#print("Kettle is not full!")
+#return False"""
+
+def preparehotwater_fullhotk(state, robot):
+#if (state.itemstate['kettle']['tempstate'] == Itemstate.hot):
+#if (state.itemstate['kettle']['fillstate'] == Itemstate.full):
+#print ("Kettle is allready full and hot - do nothing!")
+	return []
+#else: 
+#print("Kettle is not full!")
+#return False
+#else:
+#print("Water in Kettle is not hot!")
+#return False
+
+		
 def checkkettlefill(state, robot):
 	return [('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('check', 'kettle', 'openstate', Itemstate.closed), ('grasp', robot, 'kettle'), ('weigh', robot, 'kettle', Itemstate.empty), ('place', robot, 'kettle', Location.kettlebase)]
 
@@ -357,7 +370,11 @@ def fillkettle(state, robot):
 	return [('openitem', robot, 'kettle'), ('opencoldtap', robot), ('close', robot, 'coldtap'), ('close', robot, 'kettle')]
 	
 def fillkettle_kopen(state, robot):
+#if(state.itemstate['kettle']['openstate'] == Itemstate.open):"""
 	return [('opencoldtap', robot), ('close', robot, 'coldtap'), ('close', robot, 'kettle')]
+#else:
+#print("Kettle is not open!")
+#return False
 
 def placekettleonbase(state, robot):
 	return [ ('taskbringkettletobase', robot), ('place', robot, 'kettle', Location.kettlebase)]
@@ -373,7 +390,7 @@ def boilwater(state, robot):
 
 def getcleancup(state, robot):
 	if state.TOTAL_NUMBER_OF_TEACUPS == 0:
-		print("\n****No cups, no Tea!!!!!1111Elf****")
+		print("****No cups, no Tea!!!!!1111Elf****")
 		return False
 	else:
 		return [('taskcheckcupdirty', robot)]
@@ -390,20 +407,19 @@ def checkcupdirty(state, robot):
 			task = task + [('goto', robot, state.loc[teacup]), ('access', robot, teacup), ('grasp', robot, teacup)]
 			state.itemstate[teacup]['cleanstate'] = getrandomcupstate(state, teacup)
 			if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
-				print (teacup + " is clean!\n")
+				print (teacup + " is clean!")
 				task = task + [('taskplacecup', robot, teacup)]
 				state.currentcup = teacup
 				return task 
-			print (teacup + " is dirty!\n ")
+			print (teacup + " is dirty!")
 			task = task + [('place', robot, teacup, teacuploc)]
 			
 	if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
 		state.currentcup = teacup
 		return task
 	else: 
-		print("\n****I found only dirty cups, you have to clean some first!****")
+		print("****I found only dirty cups, you have to clean some first!****")
 		return False
-
 
 def placecup(state, robot, teacup):
 	tasks = [('goto', robot, Location.countertop), ('place', robot, teacup, Location.countertop)]
@@ -429,13 +445,20 @@ def placebagincup(state, robot, teabag):
 def brewtea(state, robot, teabag):
 	return[('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('openitem', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.countertop), ('pourintocup', robot, state.currentcup), ('goto', robot, Location.kettlebase), ('place', robot, 'kettle', Location.kettlebase), ('close', robot, 'kettle')]
 
+def brewtea_kopen(state, robot, teabag):
+#if(state.itemstate['kettle']['openstate'] == Itemstate.open):"""
+	return[('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.countertop), ('pourintocup', robot, state.currentcup), ('goto', robot, Location.kettlebase), ('place', robot, 'kettle', Location.kettlebase), ('close', robot, 'kettle')]
+#else:
+#print("Kettle is not open!")
+#return False"""
+	
 def setupTeaAtHome():
 	pyhop.declare_operators(goto, openitem, grasp, place, close, check, weigh, placein, turnonkettlebase, access, opencoldtap, pourintocup)
 	pyhop.declare_methods('taskmaketea', maketea)
-	pyhop.declare_methods('taskpreparehotwater', preparehotwater)
+	pyhop.declare_methods('taskpreparehotwater', preparehotwater_fullhotk, preparehotwater_fullk, preparehotwater)
 	pyhop.declare_methods('taskcheckkettlefill', checkkettlefill)
 	pyhop.declare_methods('tasplacekettleinsink', placekettleinsink)
-	pyhop.declare_methods('taskfillkettle', fillkettle, fillkettle_kopen)
+	pyhop.declare_methods('taskfillkettle', fillkettle_kopen, fillkettle)
 	pyhop.declare_methods('taskplacekettleonbase', placekettleonbase)
 	pyhop.declare_methods('taskbringkettletobase', bringkettletobase)
 	pyhop.declare_methods('taskboilwater', boilwater)
@@ -446,7 +469,7 @@ def setupTeaAtHome():
 	pyhop.declare_methods('taskprepareteabag', prepareteabag)
 	pyhop.declare_methods('taskgetteabag', getteabag)
 	pyhop.declare_methods('taskplacebagincup', placebagincup)
-	pyhop.declare_methods('taskbrewtea', brewtea)
+	pyhop.declare_methods('taskbrewtea', brewtea_kopen, brewtea)
 
 def setupRobotArm(state):
 	global RobotArm
