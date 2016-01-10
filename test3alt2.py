@@ -8,7 +8,8 @@ reload(pyhop)
 sys.stdout = open('logs/test3alt2.log', 'w')
 
 def test3():
-	"""!@brief (Helper function) Create a state object for test 2.
+	"""!@brief (Helper function) Create a state object for test 3 with a slightly different environment.
+	The kettle is closed, full and has cold water.
 	@return state state
 	"""
 	state = pyhop.State('Test3 alt 2')

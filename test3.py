@@ -8,7 +8,7 @@ reload(pyhop)
 sys.stdout = open('logs/test3.log', 'w')
 
 def test3():
-	"""!@brief (Helper function) Create a state object for test 2.
+	"""!@brief (Helper function) Create a state object for test 3.
 	@return state state
 	"""
 	state = pyhop.State('Test3')

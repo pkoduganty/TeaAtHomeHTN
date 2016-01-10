@@ -8,7 +8,8 @@ reload(pyhop)
 sys.stdout = open('logs/test1alt3.log', 'w')
 
 def test1():
-	"""!@brief (Helper function) Create a state object for test 1.
+	"""!@brief (Helper function) Create a state object for test 1 with a slightly different environment.
+	The kettle is open, empty and it is on location shelf1.
 	@return state state
 	"""
 	state = pyhop.State('Test1 alt 2')
@@ -26,7 +27,7 @@ def test1():
 		state.accessible['teacup'+str(teacups)] = teaathome.Accessible.yes
 		teacups = teacups + 1
 		
-	state.itemstate = {'kettle':{'openstate':teaathome.Itemstate.open, 'fillstate':teaathome.Itemstate.full, 'tempstate':teaathome.Itemstate.cold}, 'coldtap':{'openstate':teaathome.Itemstate.closed}}
+	state.itemstate = {'kettle':{'openstate':teaathome.Itemstate.open, 'fillstate':teaathome.Itemstate.empty, 'tempstate':teaathome.Itemstate.cold}, 'coldtap':{'openstate':teaathome.Itemstate.closed}}
 
 	for x in range(1, state.TOTAL_NUMBER_OF_TEACUPS + 1):
 		state.itemstate['teacup'+str(x)] = {'cleanstate':teaathome.Itemstate.clean, 'fillstate':teaathome.Itemstate.empty, 'tempstate':teaathome.Itemstate.cold}

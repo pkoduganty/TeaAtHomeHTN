@@ -1,5 +1,33 @@
-"""
-Code for tea at home
+"""!@mainpage Making tea at home
+@section Authors
+Felix Hampe
+Daniel Pyka
+
+@section Course
+Planning and Scheduling WS2015/2016
+
+@section Project
+Making tea at home
+
+@section Content
+@subsection planner Pyhop HTN Planner
+pyhop.py (documentation not included in doxygen)
+@subsection teaathome Making tea at home plan
+teaathome.py
+@subsection official Tests for official tasks
+test1.py
+test2.py
+test3.py
+@subsection additional Tests for official tasks with alternative environments
+test1alt1.py
+test1alt2.py
+test1alt3.py
+test2alt1.py
+test2alt2.py
+test2alt3.py
+test3alt1.py
+test3alt2.py
+test3alt3.py
 """
 
 from enum import Enum
@@ -22,16 +50,6 @@ class Itemstate(Enum):
 	dirty = 7
 	unknown = 8
 	taken = 9
-
-#class RobotArm(Enum):
-#	'''!@brief Properties of the robot arm.
-#	All items the robot can carry with his arm have a corresponding enum field in RobotArm.
-#	Because of a dynamic number of teacups, the teacup fields are created programmatically and RobotArm is recreated during runtime.
-#	E.g. RobotArm.teacup1, RobotArm.teacup2, ..., RobotArm.teacup75
-#	'''
-#	free = 0
-#	kettle = 1
-#	teabag = 2
 
 class Location(Enum):
 	'''!@brief Properties for items which can be moved.
@@ -323,6 +341,11 @@ def pourintocup(state, robot, teacup):
 		return False
 
 def maketea(state, robot, teabag, number):
+	"""!@brief (Method) Main method (root of the tree) for making tea at home.
+	@param state current state
+	@param robot robot
+	@param teabag teabag
+	@param number How many teas you want to brew"""
 	task = [('taskpreparehotwater', robot), ('taskgetcleancup', robot), ('taskfinalizetea', robot, teabag)]
 	teas = 1
 	while (teas < number):
@@ -334,9 +357,16 @@ def maketea(state, robot, teabag, number):
 """Prepare Kettle methods"""
 
 def preparehotwater(state, robot):
+	"""!@brief (Method) Preparation of kettle.
+	@param state current state
+	@param robot robot"""
 	return [('tasplacekettleinsink', robot), ('taskfillkettle', robot), ('taskplacekettleonbase', robot), ('taskboilwater', robot)]
 
 def preparehotwater_fullk(state, robot):
+	"""!@brief (Method) Preparation of kettle.
+	The kettle is already full and may be in the kitchensink or somewhere else.
+	@param state current state
+	@param robot robot"""
 #if (state.itemstate['kettle']['fillstate'] == Itemstate.full):
 	if (state.loc['kettle'] != Location.kettlebase):
 		tasks = [('goto', robot, 'kettle'), ('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, 'kettlebase'), ('place', robot, 'kettle', 'kettlebase'), ('taskboilwater', robot)]
@@ -348,65 +378,102 @@ def preparehotwater_fullk(state, robot):
 #return False"""
 
 def preparehotwater_fullhotk(state, robot):
-#if (state.itemstate['kettle']['tempstate'] == Itemstate.hot):
-#if (state.itemstate['kettle']['fillstate'] == Itemstate.full):
-#print ("Kettle is allready full and hot - do nothing!")
+	"""!@brief (Method) Preparation of kettle.
+	The kettle is already filled with hot water.
+	@param state current state
+	@param robot robot"""
+	#if (state.itemstate['kettle']['tempstate'] == Itemstate.hot):
+	#if (state.itemstate['kettle']['fillstate'] == Itemstate.full):
+	#print ("Kettle is allready full and hot - do nothing!")
 	return []
-#else: 
-#print("Kettle is not full!")
-#return False
-#else:
-#print("Water in Kettle is not hot!")
-#return False
+	#else: 
+	#print("Kettle is not full!")
+	#return False
+	#else:
+	#print("Water in Kettle is not hot!")
+	#return False
 
 		
 def checkkettlefill(state, robot):
+	"""!@brief (Method) Check if the kettle has water in.
+	This method is not mandatory, because you could alread know from the state object, that the kettle may be full or empty.
+	Using this method is a bit more flexible in some cases.
+	@param state current state
+	@param robot robot"""
 	return [('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('check', 'kettle', 'openstate', Itemstate.closed), ('grasp', robot, 'kettle'), ('weigh', robot, 'kettle', Itemstate.empty), ('place', robot, 'kettle', Location.kettlebase)]
 
 def placekettleinsink(state, robot):
+	"""!@brief (Method) Place kettle in the kitchen sink.
+	@param state current state
+	@param robot robot"""
 	return [('goto', robot, state.loc['kettle']), ('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.kitchensink), ('place', robot, 'kettle', Location.kitchensink)]
 
 def fillkettle(state, robot):
+	"""!@brief (Method) Fill the kettle in the kitchen sink.
+	Open the coldtap and the kettle and close them afterwards.
+	@param state current state
+	@param robot robot"""
 	return [('openitem', robot, 'kettle'), ('opencoldtap', robot), ('close', robot, 'coldtap'), ('close', robot, 'kettle')]
 	
 def fillkettle_kopen(state, robot):
-#if(state.itemstate['kettle']['openstate'] == Itemstate.open):"""
+	"""!@brief (Method) Fill the kettle in the kitchen sink.
+	Open the coldtap, but the kettle is already open. Close both afterwards.
+	@param state current state
+	@param robot robot"""
+	#if(state.itemstate['kettle']['openstate'] == Itemstate.open):"""
 	return [('opencoldtap', robot), ('close', robot, 'coldtap'), ('close', robot, 'kettle')]
-#else:
-#print("Kettle is not open!")
-#return False
+	#else:
+	#print("Kettle is not open!")
+	#return False
 
 def placekettleonbase(state, robot):
+	"""!@brief (Method) Bring the kettle back to the kettlebase and place it.
+	@param state current state
+	@param robot robot"""
 	return [ ('taskbringkettletobase', robot), ('place', robot, 'kettle', Location.kettlebase)]
 
 def bringkettletobase(state, robot):
+	"""!@brief (Method) Grasp kettle and go to kettlebase.
+	@param state current state
+	@param robot robot"""
 	return [('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.kettlebase)]
 
 def boilwater(state, robot):
+	"""!@brief (Method) Go to the kettle and turn on kettlebase.
+	Kettle has to be on the kettlebase otherwise it returns error.
+	@param state current state
+	@param robot robot"""
 	return [ ('goto', robot, state.loc['kettle']), ('turnonkettlebase', robot, 'kettle')]
 
 
-"""prepare cup methods"""
+#prepare cup methods
 
 def getcleancup(state, robot):
+	"""!@brief (Method) Check if number of requested teas is greater than 0.
+	@param state current state
+	@param robot robot"""
 	if state.TOTAL_NUMBER_OF_TEACUPS == 0:
 		print("****No cups, no Tea!!!!!1111Elf****")
 		return False
 	else:
 		return [('taskcheckcupdirty', robot)]
 
-""" damit plan failed, muessten -numcups- alternative methoden fuer check geschrieben werden"""
+#damit plan failed, muessten -numcups- alternative methoden fuer check geschrieben werden
 
 def checkcupdirty(state, robot):
+	"""!@brief (Method) Detect if an before unknown teacup is dirty or clean.
+	Always start at the beginning of the teacup array to search for clean teacups.
+	@param state current state
+	@param robot robot"""
 	task = []
 	teacup = ""
 	for x in range(1, state.TOTAL_NUMBER_OF_TEACUPS + 1):
 		teacup = 'teacup' + str(x)
-		if(state.itemstate[teacup]['cleanstate']!=Itemstate.taken):
+		if (state.itemstate[teacup]['cleanstate']!=Itemstate.taken):
 			teacuploc = state.loc[teacup]
 			task = task + [('goto', robot, state.loc[teacup]), ('access', robot, teacup), ('grasp', robot, teacup)]
 			state.itemstate[teacup]['cleanstate'] = getrandomcupstate(state, teacup)
-			if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
+			if (state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
 				print (teacup + " is clean!")
 				task = task + [('taskplacecup', robot, teacup)]
 				state.currentcup = teacup
@@ -414,7 +481,7 @@ def checkcupdirty(state, robot):
 			print (teacup + " is dirty!")
 			task = task + [('place', robot, teacup, teacuploc)]
 			
-	if(state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
+	if (state.itemstate[teacup]['cleanstate'] == Itemstate.clean):
 		state.currentcup = teacup
 		return task
 	else: 
@@ -422,37 +489,77 @@ def checkcupdirty(state, robot):
 		return False
 
 def placecup(state, robot, teacup):
+	"""!@brief (Method) Place a teacup on the countertop.
+	This is implicitely defined as next to the kettlebase.
+	@param state current state
+	@param robot robot
+	@param teacup teacup"""
 	tasks = [('goto', robot, Location.countertop), ('place', robot, teacup, Location.countertop)]
 	return tasks
 
-"""brew tea"""
+#Brew tea
 
 def finalizetea(state, robot, teabag):
+	"""!@brief (Method) Place a teabag into the teacup and brew tea.
+	The type of teabag is the same for all teas.
+	@param state current state
+	@param robot robot
+	@param teabag teabag"""
 	return[('taskprepareteabag', robot, teabag), ('taskbrewtea', robot, teabag)]
 
 def prepareteabag(state, robot, teabag):
+	"""!@brief (Method) Tak a teabag and place it into the teacup.
+	@param state current state
+	@param robot robot
+	@param teabag teabag"""
 	return [('taskgetteabag', robot, teabag), ('taskplacebagincup', robot, teabag) ]
 
 def getteabag(state, robot, teabag):
+	"""!@brief (Method) Grasp a teabag.
+	Go to the location of the teabag and grasp it.
+	@param state current state
+	@param robot robot
+	@param teabag teabag"""
 	return [('goto', robot, state.loc['teabag']), ('access', robot, 'teabag'), ('grasp', robot, 'teabag')]
 
 def placebagincup(state, robot, teabag):
+	"""!@brief (Method) Place a teabag into the teacup.
+	Go to the countertop and place the teabag into the teacup if it is also at this location.
+	@param state current state
+	@param robot robot
+	@param teabag teabag"""
 	if(state.currentcup == ""):
 		return False
 	state.itemstate[state.currentcup]['cleanstate'] = Itemstate.taken
 	return[('goto', robot, Location.countertop), ('access', robot, state.currentcup), ('placein', robot, state.currentcup, teabag)]
 
 def brewtea(state, robot, teabag):
+	"""!@brief (Method) Final step for making tea.
+	This part was missing in the definition of the exercise.
+	Basically pouring water into the teacup with teabag with going to the correct locations, grasping, closing etc.
+	@param state current state
+	@param robot robot
+	@param teabag teabag"""
 	return[('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('openitem', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.countertop), ('pourintocup', robot, state.currentcup), ('goto', robot, Location.kettlebase), ('place', robot, 'kettle', Location.kettlebase), ('close', robot, 'kettle')]
 
 def brewtea_kopen(state, robot, teabag):
-#if(state.itemstate['kettle']['openstate'] == Itemstate.open):"""
+	"""!@brief (Method) Final step for making tea.
+	This part was missing in the definition of the exercise.
+	Basically pouring water into the teacup with teabag with going to the correct locations, grasping, closing etc.
+	The kettle is already open.
+	@param state current state
+	@param robot robot
+	@param teabag teabag"""
+	#if(state.itemstate['kettle']['openstate'] == Itemstate.open):"""
 	return[('goto', robot, Location.kettlebase), ('access', robot, 'kettle'), ('grasp', robot, 'kettle'), ('goto', robot, Location.countertop), ('pourintocup', robot, state.currentcup), ('goto', robot, Location.kettlebase), ('place', robot, 'kettle', Location.kettlebase), ('close', robot, 'kettle')]
-#else:
-#print("Kettle is not open!")
-#return False"""
+	#else:
+	#print("Kettle is not open!")
+	#return False"""
 	
 def setupTeaAtHome():
+	'''!@brief Setup tea at home.
+	This method declares operators, tasks and methods to pyhop. This must be called BEFORE running pyhop with teaathome.
+	'''
 	pyhop.declare_operators(goto, openitem, grasp, place, close, check, weigh, placein, turnonkettlebase, access, opencoldtap, pourintocup)
 	pyhop.declare_methods('taskmaketea', maketea)
 	pyhop.declare_methods('taskpreparehotwater', preparehotwater_fullhotk, preparehotwater_fullk, preparehotwater)
@@ -472,12 +579,17 @@ def setupTeaAtHome():
 	pyhop.declare_methods('taskbrewtea', brewtea_kopen, brewtea)
 
 def setupRobotArm(state):
+	'''!@brief Setup RobotArm enum.
+	Dynamically create the RobotArm enum with all teacups#, where # are all numbers between 1 and state.TOTAL_NUMBER_OF_TEACUPS.
+	@param state The state which is created for in a test case.
+	@returns state The state which is then passed to pyhop.
+	'''
 	global RobotArm
 	teacups = []
 	teacups = ['free'] + ['kettle'] + ['teabag'] +  teacups
 	for x in range(1, state.TOTAL_NUMBER_OF_TEACUPS + 1):
 		teacups = teacups + ['teacup' + str(x)]
-		teacups = [m.name for m in Enum] +  teacups
+	teacups = [m.name for m in Enum] +  teacups
 	RobotArm = Enum('RobotArm', teacups)
 	state.robotarm = {'robot':RobotArm.free}
 	return state
