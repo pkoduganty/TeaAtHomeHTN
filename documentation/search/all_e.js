@@ -8,5 +8,7 @@ var searchData=
   ['placekettleonbase',['placekettleonbase',['../namespaceteaathome.html#a5c2308757becc85acda637e365f9f6a9',1,'teaathome']]],
   ['pourintocup',['pourintocup',['../namespaceteaathome.html#a856ebdc23bffe27d9708e6293fc411b9',1,'teaathome']]],
   ['preparehotwater',['preparehotwater',['../namespaceteaathome.html#a53be295a6bcbbbc23e39dfcf03b6a111',1,'teaathome']]],
+  ['preparehotwater_5ffullhotk',['preparehotwater_fullhotk',['../namespaceteaathome.html#a113b51197e2e639d577ec8f171ec31f8',1,'teaathome']]],
+  ['preparehotwater_5ffullk',['preparehotwater_fullk',['../namespaceteaathome.html#a10c00386425fad4565159ee4c9a59337',1,'teaathome']]],
   ['prepareteabag',['prepareteabag',['../namespaceteaathome.html#adbf3a078c4247a8a8f66283ce6330899',1,'teaathome']]]
 ];

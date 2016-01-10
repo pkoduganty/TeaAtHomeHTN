@@ -83,8 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">teaathome Namespace Reference</div>  </div>
 </div><!--header-->
@@ -101,9 +100,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteaathome_1_1_location.html">Location</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Properties for items which can be moved.  <a href="classteaathome_1_1_location.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classteaathome_1_1_robot_arm.html">RobotArm</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Properties of the robot arm.  <a href="classteaathome_1_1_robot_arm.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -119,9 +115,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a65e4b34d41ab47d398f45871f76aa0ca"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a65e4b34d41ab47d398f45871f76aa0ca">check</a> (state, item, key, expectedvalue)</td></tr>
 <tr class="memdesc:a65e4b34d41ab47d398f45871f76aa0ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Operator) Check if an item has a specific value.  <a href="#a65e4b34d41ab47d398f45871f76aa0ca">More...</a><br /></td></tr>
 <tr class="separator:a65e4b34d41ab47d398f45871f76aa0ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa63b333a5eea7306016048d5218d3dc4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#aa63b333a5eea7306016048d5218d3dc4">open</a> (state, robot, item)</td></tr>
-<tr class="memdesc:aa63b333a5eea7306016048d5218d3dc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Operator) Operator to open an item.  <a href="#aa63b333a5eea7306016048d5218d3dc4">More...</a><br /></td></tr>
-<tr class="separator:aa63b333a5eea7306016048d5218d3dc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ba21db3616ef53b3d45f0dbc4a43a6f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a4ba21db3616ef53b3d45f0dbc4a43a6f">openitem</a> (state, robot, item)</td></tr>
+<tr class="memdesc:a4ba21db3616ef53b3d45f0dbc4a43a6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Operator) Operator to open an item.  <a href="#a4ba21db3616ef53b3d45f0dbc4a43a6f">More...</a><br /></td></tr>
+<tr class="separator:a4ba21db3616ef53b3d45f0dbc4a43a6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fb19ff77e3ebc0c0b1d4c090d415501"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a9fb19ff77e3ebc0c0b1d4c090d415501">close</a> (state, robot, item)</td></tr>
 <tr class="memdesc:a9fb19ff77e3ebc0c0b1d4c090d415501"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Operator) Operator to close an item.  <a href="#a9fb19ff77e3ebc0c0b1d4c090d415501">More...</a><br /></td></tr>
 <tr class="separator:a9fb19ff77e3ebc0c0b1d4c090d415501"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,61 +143,73 @@ Functions</h2></td></tr>
 <tr class="memdesc:a856ebdc23bffe27d9708e6293fc411b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Operator) Pour water into the teacup.  <a href="#a856ebdc23bffe27d9708e6293fc411b9">More...</a><br /></td></tr>
 <tr class="separator:a856ebdc23bffe27d9708e6293fc411b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe23a65ccf04ffc1dbcb26eb48c4930b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#afe23a65ccf04ffc1dbcb26eb48c4930b">maketea</a> (state, robot, teabag, number)</td></tr>
+<tr class="memdesc:afe23a65ccf04ffc1dbcb26eb48c4930b"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Main method (root of the tree) for making tea at home.  <a href="#afe23a65ccf04ffc1dbcb26eb48c4930b">More...</a><br /></td></tr>
 <tr class="separator:afe23a65ccf04ffc1dbcb26eb48c4930b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53be295a6bcbbbc23e39dfcf03b6a111"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a53be295a6bcbbbc23e39dfcf03b6a111">preparehotwater</a> (state, robot)</td></tr>
+<tr class="memdesc:a53be295a6bcbbbc23e39dfcf03b6a111"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Preparation of kettle.  <a href="#a53be295a6bcbbbc23e39dfcf03b6a111">More...</a><br /></td></tr>
 <tr class="separator:a53be295a6bcbbbc23e39dfcf03b6a111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10c00386425fad4565159ee4c9a59337"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a10c00386425fad4565159ee4c9a59337">preparehotwater_fullk</a> (state, robot)</td></tr>
+<tr class="memdesc:a10c00386425fad4565159ee4c9a59337"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Preparation of kettle.  <a href="#a10c00386425fad4565159ee4c9a59337">More...</a><br /></td></tr>
+<tr class="separator:a10c00386425fad4565159ee4c9a59337"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a113b51197e2e639d577ec8f171ec31f8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a113b51197e2e639d577ec8f171ec31f8">preparehotwater_fullhotk</a> (state, robot)</td></tr>
+<tr class="memdesc:a113b51197e2e639d577ec8f171ec31f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Preparation of kettle.  <a href="#a113b51197e2e639d577ec8f171ec31f8">More...</a><br /></td></tr>
+<tr class="separator:a113b51197e2e639d577ec8f171ec31f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80384384955c9dede1d302ed34c12453"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a80384384955c9dede1d302ed34c12453">checkkettlefill</a> (state, robot)</td></tr>
+<tr class="memdesc:a80384384955c9dede1d302ed34c12453"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Check if the kettle has water in.  <a href="#a80384384955c9dede1d302ed34c12453">More...</a><br /></td></tr>
 <tr class="separator:a80384384955c9dede1d302ed34c12453"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa5c47c1c218bdc4ade53ecdda1ab6b1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#aaa5c47c1c218bdc4ade53ecdda1ab6b1">placekettleinsink</a> (state, robot)</td></tr>
+<tr class="memdesc:aaa5c47c1c218bdc4ade53ecdda1ab6b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Place kettle in the kitchen sink.  <a href="#aaa5c47c1c218bdc4ade53ecdda1ab6b1">More...</a><br /></td></tr>
 <tr class="separator:aaa5c47c1c218bdc4ade53ecdda1ab6b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6305a93779436f00e2167580fa34934b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a6305a93779436f00e2167580fa34934b">fillkettle</a> (state, robot)</td></tr>
+<tr class="memdesc:a6305a93779436f00e2167580fa34934b"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Fill the kettle in the kitchen sink.  <a href="#a6305a93779436f00e2167580fa34934b">More...</a><br /></td></tr>
 <tr class="separator:a6305a93779436f00e2167580fa34934b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8fa66775756237afd486333b1f263a0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#aa8fa66775756237afd486333b1f263a0">fillkettle_kopen</a> (state, robot)</td></tr>
+<tr class="memdesc:aa8fa66775756237afd486333b1f263a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Fill the kettle in the kitchen sink.  <a href="#aa8fa66775756237afd486333b1f263a0">More...</a><br /></td></tr>
+<tr class="separator:aa8fa66775756237afd486333b1f263a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c2308757becc85acda637e365f9f6a9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a5c2308757becc85acda637e365f9f6a9">placekettleonbase</a> (state, robot)</td></tr>
+<tr class="memdesc:a5c2308757becc85acda637e365f9f6a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Bring the kettle back to the kettlebase and place it.  <a href="#a5c2308757becc85acda637e365f9f6a9">More...</a><br /></td></tr>
 <tr class="separator:a5c2308757becc85acda637e365f9f6a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8132c12fafac6bf670c06c62fbefadd5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a8132c12fafac6bf670c06c62fbefadd5">bringkettletobase</a> (state, robot)</td></tr>
+<tr class="memdesc:a8132c12fafac6bf670c06c62fbefadd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Grasp kettle and go to kettlebase.  <a href="#a8132c12fafac6bf670c06c62fbefadd5">More...</a><br /></td></tr>
 <tr class="separator:a8132c12fafac6bf670c06c62fbefadd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e835ae6516580f332fc5eef62c1f3ad"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a4e835ae6516580f332fc5eef62c1f3ad">boilwater</a> (state, robot)</td></tr>
+<tr class="memdesc:a4e835ae6516580f332fc5eef62c1f3ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Go to the kettle and turn on kettlebase.  <a href="#a4e835ae6516580f332fc5eef62c1f3ad">More...</a><br /></td></tr>
 <tr class="separator:a4e835ae6516580f332fc5eef62c1f3ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30a3bae04bae363ee1463e424db51ca6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a30a3bae04bae363ee1463e424db51ca6">getcleancup</a> (state, robot)</td></tr>
+<tr class="memdesc:a30a3bae04bae363ee1463e424db51ca6"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Check if number of requested teas is greater than 0.  <a href="#a30a3bae04bae363ee1463e424db51ca6">More...</a><br /></td></tr>
 <tr class="separator:a30a3bae04bae363ee1463e424db51ca6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38e8ad6ad28a9a2cb55e03a6b74d4753"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a38e8ad6ad28a9a2cb55e03a6b74d4753">checkcupdirty</a> (state, robot)</td></tr>
+<tr class="memdesc:a38e8ad6ad28a9a2cb55e03a6b74d4753"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Detect if an before unknown teacup is dirty or clean.  <a href="#a38e8ad6ad28a9a2cb55e03a6b74d4753">More...</a><br /></td></tr>
 <tr class="separator:a38e8ad6ad28a9a2cb55e03a6b74d4753"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3d3508d5d83dce20b52af7c744b9258"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#ad3d3508d5d83dce20b52af7c744b9258">placecup</a> (state, robot, teacup)</td></tr>
+<tr class="memdesc:ad3d3508d5d83dce20b52af7c744b9258"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Place a teacup on the countertop.  <a href="#ad3d3508d5d83dce20b52af7c744b9258">More...</a><br /></td></tr>
 <tr class="separator:ad3d3508d5d83dce20b52af7c744b9258"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2db37192c4a7b5affc6d4fd1d1ff1b0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#af2db37192c4a7b5affc6d4fd1d1ff1b0">finalizetea</a> (state, robot, teabag)</td></tr>
+<tr class="memdesc:af2db37192c4a7b5affc6d4fd1d1ff1b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Place a teabag into the teacup and brew tea.  <a href="#af2db37192c4a7b5affc6d4fd1d1ff1b0">More...</a><br /></td></tr>
 <tr class="separator:af2db37192c4a7b5affc6d4fd1d1ff1b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbf3a078c4247a8a8f66283ce6330899"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#adbf3a078c4247a8a8f66283ce6330899">prepareteabag</a> (state, robot, teabag)</td></tr>
+<tr class="memdesc:adbf3a078c4247a8a8f66283ce6330899"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Tak a teabag and place it into the teacup.  <a href="#adbf3a078c4247a8a8f66283ce6330899">More...</a><br /></td></tr>
 <tr class="separator:adbf3a078c4247a8a8f66283ce6330899"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0408a64078362a0919f10dc9773633df"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a0408a64078362a0919f10dc9773633df">getteabag</a> (state, robot, teabag)</td></tr>
+<tr class="memdesc:a0408a64078362a0919f10dc9773633df"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Grasp a teabag.  <a href="#a0408a64078362a0919f10dc9773633df">More...</a><br /></td></tr>
 <tr class="separator:a0408a64078362a0919f10dc9773633df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade003277dc8c2056ce19684854db3f7f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#ade003277dc8c2056ce19684854db3f7f">placebagincup</a> (state, robot, teabag)</td></tr>
+<tr class="memdesc:ade003277dc8c2056ce19684854db3f7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Place a teabag into the teacup.  <a href="#ade003277dc8c2056ce19684854db3f7f">More...</a><br /></td></tr>
 <tr class="separator:ade003277dc8c2056ce19684854db3f7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53b514460004f14efcd39fdc823a1efe"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a53b514460004f14efcd39fdc823a1efe">brewtea</a> (state, robot, teabag)</td></tr>
+<tr class="memdesc:a53b514460004f14efcd39fdc823a1efe"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Final step for making tea.  <a href="#a53b514460004f14efcd39fdc823a1efe">More...</a><br /></td></tr>
 <tr class="separator:a53b514460004f14efcd39fdc823a1efe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15dfdc53a0e343038ea71f98f2ed9b18"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a15dfdc53a0e343038ea71f98f2ed9b18">test1</a> ()</td></tr>
-<tr class="memdesc:a15dfdc53a0e343038ea71f98f2ed9b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Helper function) Create a state object for test 1.  <a href="#a15dfdc53a0e343038ea71f98f2ed9b18">More...</a><br /></td></tr>
-<tr class="separator:a15dfdc53a0e343038ea71f98f2ed9b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f11bb0327c9b579d95bdd54d88c0b3d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a3f11bb0327c9b579d95bdd54d88c0b3d">test2</a> ()</td></tr>
-<tr class="memdesc:a3f11bb0327c9b579d95bdd54d88c0b3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Helper function) Create a state object for test 2.  <a href="#a3f11bb0327c9b579d95bdd54d88c0b3d">More...</a><br /></td></tr>
-<tr class="separator:a3f11bb0327c9b579d95bdd54d88c0b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8fc4848532fd3053d72773e3ba08c59"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#ad8fc4848532fd3053d72773e3ba08c59">test3</a> ()</td></tr>
-<tr class="memdesc:ad8fc4848532fd3053d72773e3ba08c59"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Helper function) Create a state object for test 3.  <a href="#ad8fc4848532fd3053d72773e3ba08c59">More...</a><br /></td></tr>
-<tr class="separator:ad8fc4848532fd3053d72773e3ba08c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:ab5c713f3374bd70519846e5f8b36f186"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#ab5c713f3374bd70519846e5f8b36f186">TOTAL_NUMBER_OF_TEACUPS</a> = 77</td></tr>
-<tr class="separator:ab5c713f3374bd70519846e5f8b36f186"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe0077fc764586161d1300cafe51992d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#afe0077fc764586161d1300cafe51992d">NUMBER_OF_DIRTY_TEACUPS</a> = 30</td></tr>
-<tr class="separator:afe0077fc764586161d1300cafe51992d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90feffd0b98b3ae9df20a20040cf75c1"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a90feffd0b98b3ae9df20a20040cf75c1">teacups</a> = []</td></tr>
-<tr class="separator:a90feffd0b98b3ae9df20a20040cf75c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a358c9232748b6f5c77428df70479c7a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a358c9232748b6f5c77428df70479c7a3">RobotArm</a> = Enum('<a class="el" href="classteaathome_1_1_robot_arm.html">RobotArm</a>', <a class="el" href="namespaceteaathome.html#a90feffd0b98b3ae9df20a20040cf75c1">teacups</a>)</td></tr>
-<tr class="separator:a358c9232748b6f5c77428df70479c7a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef139da1510654dd5462d27cbdd0e907"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#aef139da1510654dd5462d27cbdd0e907">brewtea_kopen</a> (state, robot, teabag)</td></tr>
+<tr class="memdesc:aef139da1510654dd5462d27cbdd0e907"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Method) Final step for making tea.  <a href="#aef139da1510654dd5462d27cbdd0e907">More...</a><br /></td></tr>
+<tr class="separator:aef139da1510654dd5462d27cbdd0e907"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37df8527f300bbf86e7d73fe72b8a7c9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#a37df8527f300bbf86e7d73fe72b8a7c9">setupTeaAtHome</a> ()</td></tr>
+<tr class="memdesc:a37df8527f300bbf86e7d73fe72b8a7c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup tea at home.  <a href="#a37df8527f300bbf86e7d73fe72b8a7c9">More...</a><br /></td></tr>
+<tr class="separator:a37df8527f300bbf86e7d73fe72b8a7c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaba24ddfe16f49904abe991f3a49c4d5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceteaathome.html#aaba24ddfe16f49904abe991f3a49c4d5">setupRobotArm</a> (state)</td></tr>
+<tr class="memdesc:aaba24ddfe16f49904abe991f3a49c4d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup RobotArm enum.  <a href="#aaba24ddfe16f49904abe991f3a49c4d5">More...</a><br /></td></tr>
+<tr class="separator:aaba24ddfe16f49904abe991f3a49c4d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><pre class="fragment">Code for tea at home
-</pre> </div><h2 class="groupheader">Function Documentation</h2>
+<h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ab90c3d215c6c0c50723214ef396cd4cd"></a>
 <div class="memitem">
 <div class="memproto">
@@ -271,6 +279,15 @@ False In error case (fail) </dd></dl>
       </table>
 </div><div class="memdoc">
 
+<p>(Method) Go to the kettle and turn on kettlebase. </p>
+<p>Kettle has to be on the kettlebase otherwise it returns error. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="a53b514460004f14efcd39fdc823a1efe"></a>
@@ -303,6 +320,58 @@ False In error case (fail) </dd></dl>
       </table>
 </div><div class="memdoc">
 
+<p>(Method) Final step for making tea. </p>
+<p>This part was missing in the definition of the exercise. Basically pouring water into the teacup with teabag with going to the correct locations, grasping, closing etc. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+    <tr><td class="paramname">teabag</td><td>teabag </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aef139da1510654dd5462d27cbdd0e907"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def teaathome.brewtea_kopen </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>robot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>teabag</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>(Method) Final step for making tea. </p>
+<p>This part was missing in the definition of the exercise. Basically pouring water into the teacup with teabag with going to the correct locations, grasping, closing etc. The kettle is already open. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+    <tr><td class="paramname">teabag</td><td>teabag </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="a8132c12fafac6bf670c06c62fbefadd5"></a>
@@ -328,6 +397,15 @@ False In error case (fail) </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>(Method) Grasp kettle and go to kettlebase. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -407,6 +485,15 @@ False In error case (fail) </dd></dl>
       </table>
 </div><div class="memdoc">
 
+<p>(Method) Detect if an before unknown teacup is dirty or clean. </p>
+<p>Always start at the beginning of the teacup array to search for clean teacups. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="a80384384955c9dede1d302ed34c12453"></a>
@@ -432,6 +519,15 @@ False In error case (fail) </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>(Method) Check if the kettle has water in. </p>
+<p>This method is not mandatory, because you could alread know from the state object, that the kettle may be full or empty. Using this method is a bit more flexible in some cases. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -504,6 +600,50 @@ False In error case (fail) </dd></dl>
       </table>
 </div><div class="memdoc">
 
+<p>(Method) Fill the kettle in the kitchen sink. </p>
+<p>Open the coldtap and the kettle and close them afterwards. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aa8fa66775756237afd486333b1f263a0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def teaathome.fillkettle_kopen </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>robot</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>(Method) Fill the kettle in the kitchen sink. </p>
+<p>Open the coldtap, but the kettle is already open. Close both afterwards. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="af2db37192c4a7b5affc6d4fd1d1ff1b0"></a>
@@ -536,6 +676,16 @@ False In error case (fail) </dd></dl>
       </table>
 </div><div class="memdoc">
 
+<p>(Method) Place a teabag into the teacup and brew tea. </p>
+<p>The type of teabag is the same for all teas. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+    <tr><td class="paramname">teabag</td><td>teabag </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="a30a3bae04bae363ee1463e424db51ca6"></a>
@@ -561,6 +711,15 @@ False In error case (fail) </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>(Method) Check if number of requested teas is greater than 0. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -629,6 +788,16 @@ False In error case (fail) </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>(Method) Grasp a teabag. </p>
+<p>Go to the location of the teabag and grasp it. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+    <tr><td class="paramname">teabag</td><td>teabag </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -758,50 +927,16 @@ False In error case (fail) </dd></dl>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a class="anchor" id="aa63b333a5eea7306016048d5218d3dc4"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def teaathome.open </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>state</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>robot</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>item</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>(Operator) Operator to open an item. </p>
+<p>(Method) Main method (root of the tree) for making tea at home. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">state</td><td>current state </td></tr>
     <tr><td class="paramname">robot</td><td>robot </td></tr>
-    <tr><td class="paramname">item</td><td>item to open </td></tr>
+    <tr><td class="paramname">teabag</td><td>teabag </td></tr>
+    <tr><td class="paramname">number</td><td>How many teas you want to brew </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>state Returns the state object (success) or </dd>
-<dd>
-False In error case (fail) </dd></dl>
 
 </div>
 </div>
@@ -834,6 +969,51 @@ False In error case (fail) </dd></dl>
   <table class="params">
     <tr><td class="paramname">state</td><td>current state </td></tr>
     <tr><td class="paramname">robot</td><td>robot </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>state Returns the state object (success) or </dd>
+<dd>
+False In error case (fail) </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4ba21db3616ef53b3d45f0dbc4a43a6f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def teaathome.openitem </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>robot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>item</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>(Operator) Operator to open an item. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+    <tr><td class="paramname">item</td><td>item to open </td></tr>
   </table>
   </dd>
 </dl>
@@ -925,6 +1105,16 @@ False In error case (fail) </dd></dl>
       </table>
 </div><div class="memdoc">
 
+<p>(Method) Place a teabag into the teacup. </p>
+<p>Go to the countertop and place the teabag into the teacup if it is also at this location. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+    <tr><td class="paramname">teabag</td><td>teabag </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="ad3d3508d5d83dce20b52af7c744b9258"></a>
@@ -956,6 +1146,16 @@ False In error case (fail) </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>(Method) Place a teacup on the countertop. </p>
+<p>This is implicitely defined as next to the kettlebase. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+    <tr><td class="paramname">teacup</td><td>teacup </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1035,6 +1235,15 @@ False In error case (fail) </dd></dl>
       </table>
 </div><div class="memdoc">
 
+<p>(Method) Place kettle in the kitchen sink. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="a5c2308757becc85acda637e365f9f6a9"></a>
@@ -1060,6 +1269,15 @@ False In error case (fail) </dd></dl>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>(Method) Bring the kettle back to the kettlebase and place it. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1129,6 +1347,85 @@ False In error case (fail) </dd></dl>
       </table>
 </div><div class="memdoc">
 
+<p>(Method) Preparation of kettle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a113b51197e2e639d577ec8f171ec31f8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def teaathome.preparehotwater_fullhotk </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>robot</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>(Method) Preparation of kettle. </p>
+<p>The kettle is already filled with hot water. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a10c00386425fad4565159ee4c9a59337"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def teaathome.preparehotwater_fullk </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>robot</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>(Method) Preparation of kettle. </p>
+<p>The kettle is already full and may be in the kitchensink or somewhere else. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="adbf3a078c4247a8a8f66283ce6330899"></a>
@@ -1161,14 +1458,49 @@ False In error case (fail) </dd></dl>
       </table>
 </div><div class="memdoc">
 
+<p>(Method) Tak a teabag and place it into the teacup. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">robot</td><td>robot </td></tr>
+    <tr><td class="paramname">teabag</td><td>teabag </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a class="anchor" id="a15dfdc53a0e343038ea71f98f2ed9b18"></a>
+<a class="anchor" id="aaba24ddfe16f49904abe991f3a49c4d5"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def teaathome.test1 </td>
+          <td class="memname">def teaathome.setupRobotArm </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setup RobotArm enum. </p>
+<p>Dynamically create the RobotArm enum with all teacups#, where # are all numbers between 1 and state.TOTAL_NUMBER_OF_TEACUPS. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>The state which is created for in a test case. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>state The state which is then passed to pyhop. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a37df8527f300bbf86e7d73fe72b8a7c9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def teaathome.setupTeaAtHome </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1176,44 +1508,8 @@ False In error case (fail) </dd></dl>
       </table>
 </div><div class="memdoc">
 
-<p>(Helper function) Create a state object for test 1. </p>
-<dl class="section return"><dt>Returns</dt><dd>state state </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a3f11bb0327c9b579d95bdd54d88c0b3d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def teaathome.test2 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>(Helper function) Create a state object for test 2. </p>
-<dl class="section return"><dt>Returns</dt><dd>state state </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ad8fc4848532fd3053d72773e3ba08c59"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def teaathome.test3 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>(Helper function) Create a state object for test 3. </p>
-<dl class="section return"><dt>Returns</dt><dd>state state </dd></dl>
+<p>Setup tea at home. </p>
+<p>This method declares operators, tasks and methods to pyhop. This must be called BEFORE running pyhop with teaathome. </p>
 
 </div>
 </div>
@@ -1311,55 +1607,6 @@ False In error case (fail) </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>state Returns the state object (success) or </dd>
 <dd>
 False In error case (fail) </dd></dl>
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a class="anchor" id="afe0077fc764586161d1300cafe51992d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int teaathome.NUMBER_OF_DIRTY_TEACUPS = 30</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a358c9232748b6f5c77428df70479c7a3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classteaathome_1_1_robot_arm.html">teaathome.RobotArm</a> = Enum('<a class="el" href="classteaathome_1_1_robot_arm.html">RobotArm</a>', <a class="el" href="namespaceteaathome.html#a90feffd0b98b3ae9df20a20040cf75c1">teacups</a>)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a90feffd0b98b3ae9df20a20040cf75c1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">list teaathome.teacups = []</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ab5c713f3374bd70519846e5f8b36f186"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int teaathome.TOTAL_NUMBER_OF_TEACUPS = 77</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>

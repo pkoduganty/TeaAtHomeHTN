@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['test1',['test1',['../namespaceteaathome.html#a15dfdc53a0e343038ea71f98f2ed9b18',1,'teaathome']]],
-  ['test2',['test2',['../namespaceteaathome.html#a3f11bb0327c9b579d95bdd54d88c0b3d',1,'teaathome']]],
-  ['test3',['test3',['../namespaceteaathome.html#ad8fc4848532fd3053d72773e3ba08c59',1,'teaathome']]],
-  ['turnonkettlebase',['turnonkettlebase',['../namespaceteaathome.html#a8b001f83711fac53df069add4b0171f9',1,'teaathome']]]
+  ['setuprobotarm',['setupRobotArm',['../namespaceteaathome.html#aaba24ddfe16f49904abe991f3a49c4d5',1,'teaathome']]],
+  ['setupteaathome',['setupTeaAtHome',['../namespaceteaathome.html#a37df8527f300bbf86e7d73fe72b8a7c9',1,'teaathome']]]
 ];
