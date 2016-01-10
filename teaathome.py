@@ -580,13 +580,13 @@ def setupTeaAtHome():
 	pyhop.declare_methods('taskbrewtea', brewtea_kopen, brewtea)
 
 def setupRobotArm(state):
-	start = datetime.datetime.now()
 	'''!@brief Setup RobotArm enum.
 	Dynamically create the RobotArm enum with all teacups#, where # are all numbers between 1 and state.TOTAL_NUMBER_OF_TEACUPS.
 	@param state The state which is created for in a test case.
 	@returns state The state which is then passed to pyhop.
 	'''
 	global RobotArm
+	start = datetime.datetime.now()
 	teacups = []
 	teacups = ['free'] + ['kettle'] + ['teabag'] +  teacups
 	for x in range(1, state.TOTAL_NUMBER_OF_TEACUPS + 1):
