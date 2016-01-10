@@ -30,8 +30,8 @@ def test2():
 
 	for x in range(1, state.TOTAL_NUMBER_OF_TEACUPS + 1):
 		state.itemstate['teacup'+str(x)] = {'cleanstate':teaathome.Itemstate.unknown, 'fillstate':teaathome.Itemstate.empty, 'tempstate':teaathome.Itemstate.cold}
-	dirtycups = 1
-	while dirtycups <= state.NUMBER_OF_DIRTY_TEACUPS:
+	dirtycups = 0
+	while dirtycups < state.NUMBER_OF_DIRTY_TEACUPS:
 		cup = 'teacup'+str(random.randint(1,state.TOTAL_NUMBER_OF_TEACUPS))
 		if(state.itemstate[cup]['cleanstate'] == teaathome.Itemstate.unknown):
 			state.itemstate[cup]['cleanstate'] = teaathome.Itemstate.dirty

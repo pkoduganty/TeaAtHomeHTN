@@ -1,0 +1,19 @@
+Gliederung: 
+
+Inhalt
+
+Problemstellung - kurz nochmal drauf eingehen
+
+Verwendeter Planer - warum, ggf. details install und so
+
+Methoden aufrufhierarchie
+
+Sonderfall - umswitchen methode
+
+Tests beschreiben 
+
+Grundsätzliche Strategie Methodenauswahl
+
+Clean / dirty cups
+
+Explanation of failures

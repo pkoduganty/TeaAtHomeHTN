@@ -2,19 +2,21 @@ import teaathome
 import pyhop
 import random
 import sys
+import datetime
 reload(teaathome)
 reload(pyhop)
 
-sys.stdout = open('logs/test2alt3.log', 'w')
+sys.stdout = open('logs/test4.log', 'w')
+start = datetime.datetime.now()
 
 def test2():
 	"""!@brief (Helper function) Create a state object for test 2.
 	@return state state
 	"""
 	state = pyhop.State('Test2')
-	state.TOTAL_NUMBER_OF_TEACUPS = 76
-	state.NUMBER_OF_DIRTY_TEACUPS = 30
-	state.loc = {'robot':teaathome.Location.startlocation, 'coldtap':teaathome.Location.kitchensink, 'kettle':teaathome.Location.shelf1, 'teabag':teaathome.Location.countertop}
+	state.TOTAL_NUMBER_OF_TEACUPS = 5000
+	state.NUMBER_OF_DIRTY_TEACUPS = 2500
+	state.loc = {'robot':teaathome.Location.startlocation, 'coldtap':teaathome.Location.kitchensink, 'kettle':teaathome.Location.kettlebase, 'teabag':teaathome.Location.countertop}
 	teacups = 1
 	while teacups <= state.TOTAL_NUMBER_OF_TEACUPS:
 		state.loc['teacup'+str(teacups)] = teaathome.Location((random.randint(6, 13)))
@@ -26,13 +28,14 @@ def test2():
 		state.accessible['teacup'+str(teacups)] = teaathome.Accessible.yes
 		teacups = teacups + 1
 		
-	state.itemstate = {'kettle':{'openstate':teaathome.Itemstate.open, 'fillstate':teaathome.Itemstate.empty, 'tempstate':teaathome.Itemstate.cold}, 'coldtap':{'openstate':teaathome.Itemstate.closed}}
+	state.itemstate = {'kettle':{'openstate':teaathome.Itemstate.closed, 'fillstate':teaathome.Itemstate.empty, 'tempstate':teaathome.Itemstate.cold}, 'coldtap':{'openstate':teaathome.Itemstate.closed}}
 
 	for x in range(1, state.TOTAL_NUMBER_OF_TEACUPS + 1):
 		state.itemstate['teacup'+str(x)] = {'cleanstate':teaathome.Itemstate.unknown, 'fillstate':teaathome.Itemstate.empty, 'tempstate':teaathome.Itemstate.cold}
 	dirtycups = 0
 	while dirtycups < state.NUMBER_OF_DIRTY_TEACUPS:
-		cup = 'teacup'+str(random.randint(1,state.TOTAL_NUMBER_OF_TEACUPS))
+		randnr = random.randint(1,state.TOTAL_NUMBER_OF_TEACUPS)
+		cup = 'teacup'+str(randnr)
 		if(state.itemstate[cup]['cleanstate'] == teaathome.Itemstate.unknown):
 			state.itemstate[cup]['cleanstate'] = teaathome.Itemstate.dirty
 			dirtycups = dirtycups + 1
@@ -44,6 +47,7 @@ def test2():
 			cleancups = cleancups + 1"""
 		
 	state.currentcup = ""
+	print("State finished after " + str(datetime.datetime.now()-start))
 	return state
 
 	#goal = pyhop.Goal('goal 2')
@@ -62,8 +66,10 @@ pyhop.print_methods()
 print('')
 
 pyhop.pyhop(teaathome.setupRobotArm(test2()),[('taskmaketea','robot','teabag', 1)],verbose=2)
-
+end = datetime.datetime.now()
+print('Result log file: logs/test4.log, finished at ' + str(end))
+print('Result took ' + str(end-start))
 sys.stdout.close()
 
 sys.stdout = sys.__stdout__
-print('Result log file: logs/test2alt3.log')
+

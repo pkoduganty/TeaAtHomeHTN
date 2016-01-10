@@ -5,6 +5,7 @@ Code for tea at home
 from enum import Enum
 import pyhop
 import random
+import datetime
 reload(pyhop)
 
 class Itemstate(Enum):
@@ -472,12 +473,14 @@ def setupTeaAtHome():
 	pyhop.declare_methods('taskbrewtea', brewtea_kopen, brewtea)
 
 def setupRobotArm(state):
+	start = datetime.datetime.now()
 	global RobotArm
 	teacups = []
 	teacups = ['free'] + ['kettle'] + ['teabag'] +  teacups
 	for x in range(1, state.TOTAL_NUMBER_OF_TEACUPS + 1):
 		teacups = teacups + ['teacup' + str(x)]
-		teacups = [m.name for m in Enum] +  teacups
+	teacups = [m.name for m in Enum] +  teacups
 	RobotArm = Enum('RobotArm', teacups)
 	state.robotarm = {'robot':RobotArm.free}
+	print('Robot arm Setup done in: ' + str(datetime.datetime.now() - start))
 	return state
