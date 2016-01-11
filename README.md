@@ -1,7 +1,7 @@
 TeaAtHomeHTN
 ============
 
-Status: Almost finished ;)
+Status: Finished!
 
 ### Introduction
 HTN planner "Pyhop" with a simple example "making tea at home" for the planning and scheduling course. Developed in Python version 2.7.
