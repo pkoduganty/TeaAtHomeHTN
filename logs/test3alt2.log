@@ -1,0 +1,206 @@
+OPERATORS: turnonkettlebase, openitem, goto, placein, access, opencoldtap, place, close, grasp, weigh, check, pourintocup
+
+TASK:                    METHODS:
+taskcheckkettlefill      checkkettlefill
+taskpreparehotwater      preparehotwater_fullhotk, preparehotwater_fullk, preparehotwater
+taskboilwater            boilwater
+taskplacecup             placecup
+taskbringkettletobase    bringkettletobase
+taskmaketea              maketea
+taskgetteabag            getteabag
+tasplacekettleinsink     placekettleinsink
+taskfillkettle           fillkettle_kopen, fillkettle
+taskplacekettleonbase    placekettleonbase
+taskbrewtea              brewtea_kopen, brewtea
+taskfinalizetea          finalizetea
+taskcheckcupdirty        checkcupdirty
+taskgetcleancup          getcleancup
+taskplacebagincup        placebagincup
+taskprepareteabag        prepareteabag
+
+
+Running test3: pyhop.pyhop(test3(),[('taskmaketea','robot','teabag', 2)],verbose=2)
+
+Robot arm Setup done in: 0:00:00
+** pyhop, verbose=2: **
+   state = Test3 alt 2
+   tasks = [('taskmaketea', 'robot', 'teabag', 2)]
+depth 0 tasks [('taskmaketea', 'robot', 'teabag', 2)]
+depth 1 tasks [('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 2 tasks [('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 3 tasks [('taskcheckcupdirty', 'robot'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+teacup1 is clean!
+depth 4 tasks [('goto', 'robot', <Location.shelf7: 12>), ('access', 'robot', 'teacup1'), ('grasp', 'robot', 'teacup1'), ('taskplacecup', 'robot', 'teacup1'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 5 tasks [('access', 'robot', 'teacup1'), ('grasp', 'robot', 'teacup1'), ('taskplacecup', 'robot', 'teacup1'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 6 tasks [('grasp', 'robot', 'teacup1'), ('taskplacecup', 'robot', 'teacup1'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 7 tasks [('taskplacecup', 'robot', 'teacup1'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 8 tasks [('goto', 'robot', <Location.countertop: 3>), ('place', 'robot', 'teacup1', <Location.countertop: 3>), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 9 tasks [('place', 'robot', 'teacup1', <Location.countertop: 3>), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 10 tasks [('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 11 tasks [('taskprepareteabag', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 12 tasks [('taskgetteabag', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 13 tasks [('goto', 'robot', <Location.countertop: 3>), ('access', 'robot', 'teabag'), ('grasp', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+****Robot is already at location countertop - so goto does nothing!****
+depth 14 tasks [('access', 'robot', 'teabag'), ('grasp', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 15 tasks [('grasp', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 16 tasks [('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 17 tasks [('goto', 'robot', <Location.countertop: 3>), ('access', 'robot', 'teacup1'), ('placein', 'robot', 'teacup1', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+****Robot is already at location countertop - so goto does nothing!****
+depth 18 tasks [('access', 'robot', 'teacup1'), ('placein', 'robot', 'teacup1', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 19 tasks [('placein', 'robot', 'teacup1', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 20 tasks [('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 21 tasks [('goto', 'robot', <Location.kettlebase: 0>), ('access', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 22 tasks [('access', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 23 tasks [('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 24 tasks [('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 25 tasks [('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+****pourintocup failed, kettle not open****
+depth 21 tasks [('goto', 'robot', <Location.kettlebase: 0>), ('access', 'robot', 'kettle'), ('openitem', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 22 tasks [('access', 'robot', 'kettle'), ('openitem', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 23 tasks [('openitem', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 24 tasks [('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 25 tasks [('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 26 tasks [('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+****pourintocup failed, water in kettle not hot****
+depth 2 tasks [('goto', 'robot', 'kettlebase'), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 3 tasks [('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 4 tasks [('goto', 'robot', <Location.kettlebase: 0>), ('turnonkettlebase', 'robot', 'kettle'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 5 tasks [('turnonkettlebase', 'robot', 'kettle'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 6 tasks [('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 7 tasks [('taskcheckcupdirty', 'robot'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+teacup1 is clean!
+depth 8 tasks [('goto', 'robot', <Location.shelf7: 12>), ('access', 'robot', 'teacup1'), ('grasp', 'robot', 'teacup1'), ('taskplacecup', 'robot', 'teacup1'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 9 tasks [('access', 'robot', 'teacup1'), ('grasp', 'robot', 'teacup1'), ('taskplacecup', 'robot', 'teacup1'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 10 tasks [('grasp', 'robot', 'teacup1'), ('taskplacecup', 'robot', 'teacup1'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 11 tasks [('taskplacecup', 'robot', 'teacup1'), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 12 tasks [('goto', 'robot', <Location.countertop: 3>), ('place', 'robot', 'teacup1', <Location.countertop: 3>), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 13 tasks [('place', 'robot', 'teacup1', <Location.countertop: 3>), ('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 14 tasks [('taskfinalizetea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 15 tasks [('taskprepareteabag', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 16 tasks [('taskgetteabag', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 17 tasks [('goto', 'robot', <Location.countertop: 3>), ('access', 'robot', 'teabag'), ('grasp', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+****Robot is already at location countertop - so goto does nothing!****
+depth 18 tasks [('access', 'robot', 'teabag'), ('grasp', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 19 tasks [('grasp', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 20 tasks [('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 21 tasks [('goto', 'robot', <Location.countertop: 3>), ('access', 'robot', 'teacup1'), ('placein', 'robot', 'teacup1', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+****Robot is already at location countertop - so goto does nothing!****
+depth 22 tasks [('access', 'robot', 'teacup1'), ('placein', 'robot', 'teacup1', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 23 tasks [('placein', 'robot', 'teacup1', 'teabag'), ('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 24 tasks [('taskbrewtea', 'robot', 'teabag'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 25 tasks [('goto', 'robot', <Location.kettlebase: 0>), ('access', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 26 tasks [('access', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 27 tasks [('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 28 tasks [('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 29 tasks [('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+****pourintocup failed, kettle not open****
+depth 25 tasks [('goto', 'robot', <Location.kettlebase: 0>), ('access', 'robot', 'kettle'), ('openitem', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 26 tasks [('access', 'robot', 'kettle'), ('openitem', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 27 tasks [('openitem', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 28 tasks [('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 29 tasks [('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 30 tasks [('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 31 tasks [('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 32 tasks [('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 33 tasks [('close', 'robot', 'kettle'), ('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 34 tasks [('taskpreparehotwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 35 tasks [('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 36 tasks [('taskcheckcupdirty', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+teacup2 is clean!
+depth 37 tasks [('goto', 'robot', <Location.shelf6: 11>), ('access', 'robot', 'teacup2'), ('grasp', 'robot', 'teacup2'), ('taskplacecup', 'robot', 'teacup2'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 38 tasks [('access', 'robot', 'teacup2'), ('grasp', 'robot', 'teacup2'), ('taskplacecup', 'robot', 'teacup2'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 39 tasks [('grasp', 'robot', 'teacup2'), ('taskplacecup', 'robot', 'teacup2'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 40 tasks [('taskplacecup', 'robot', 'teacup2'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 41 tasks [('goto', 'robot', <Location.countertop: 3>), ('place', 'robot', 'teacup2', <Location.countertop: 3>), ('taskfinalizetea', 'robot', 'teabag')]
+depth 42 tasks [('place', 'robot', 'teacup2', <Location.countertop: 3>), ('taskfinalizetea', 'robot', 'teabag')]
+depth 43 tasks [('taskfinalizetea', 'robot', 'teabag')]
+depth 44 tasks [('taskprepareteabag', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 45 tasks [('taskgetteabag', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 46 tasks [('goto', 'robot', <Location.inteacup: 5>), ('access', 'robot', 'teabag'), ('grasp', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 47 tasks [('access', 'robot', 'teabag'), ('grasp', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 48 tasks [('grasp', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 49 tasks [('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 50 tasks [('goto', 'robot', <Location.countertop: 3>), ('access', 'robot', 'teacup2'), ('placein', 'robot', 'teacup2', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 51 tasks [('access', 'robot', 'teacup2'), ('placein', 'robot', 'teacup2', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 52 tasks [('placein', 'robot', 'teacup2', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 53 tasks [('taskbrewtea', 'robot', 'teabag')]
+depth 54 tasks [('goto', 'robot', <Location.kettlebase: 0>), ('access', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 55 tasks [('access', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 56 tasks [('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 57 tasks [('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 58 tasks [('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+****pourintocup failed, kettle not open****
+depth 54 tasks [('goto', 'robot', <Location.kettlebase: 0>), ('access', 'robot', 'kettle'), ('openitem', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 55 tasks [('access', 'robot', 'kettle'), ('openitem', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 56 tasks [('openitem', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 57 tasks [('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 58 tasks [('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 59 tasks [('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+****pourintocup failed, water in kettle not hot****
+depth 35 tasks [('goto', 'robot', 'kettlebase'), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 36 tasks [('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 37 tasks [('goto', 'robot', <Location.kettlebase: 0>), ('turnonkettlebase', 'robot', 'kettle'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 38 tasks [('turnonkettlebase', 'robot', 'kettle'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+****turnonkettlebase failed, kettle not full****
+depth 35 tasks [('tasplacekettleinsink', 'robot'), ('taskfillkettle', 'robot'), ('taskplacekettleonbase', 'robot'), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 36 tasks [('goto', 'robot', <Location.kettlebase: 0>), ('access', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.kitchensink: 2>), ('place', 'robot', 'kettle', <Location.kitchensink: 2>), ('taskfillkettle', 'robot'), ('taskplacekettleonbase', 'robot'), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+****Robot is already at location kettlebase - so goto does nothing!****
+depth 37 tasks [('access', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.kitchensink: 2>), ('place', 'robot', 'kettle', <Location.kitchensink: 2>), ('taskfillkettle', 'robot'), ('taskplacekettleonbase', 'robot'), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 38 tasks [('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.kitchensink: 2>), ('place', 'robot', 'kettle', <Location.kitchensink: 2>), ('taskfillkettle', 'robot'), ('taskplacekettleonbase', 'robot'), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 39 tasks [('goto', 'robot', <Location.kitchensink: 2>), ('place', 'robot', 'kettle', <Location.kitchensink: 2>), ('taskfillkettle', 'robot'), ('taskplacekettleonbase', 'robot'), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 40 tasks [('place', 'robot', 'kettle', <Location.kitchensink: 2>), ('taskfillkettle', 'robot'), ('taskplacekettleonbase', 'robot'), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 41 tasks [('taskfillkettle', 'robot'), ('taskplacekettleonbase', 'robot'), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 42 tasks [('opencoldtap', 'robot'), ('close', 'robot', 'coldtap'), ('close', 'robot', 'kettle'), ('taskplacekettleonbase', 'robot'), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+****opencoldtap failed, kettle not open****
+depth 42 tasks [('openitem', 'robot', 'kettle'), ('opencoldtap', 'robot'), ('close', 'robot', 'coldtap'), ('close', 'robot', 'kettle'), ('taskplacekettleonbase', 'robot'), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 43 tasks [('opencoldtap', 'robot'), ('close', 'robot', 'coldtap'), ('close', 'robot', 'kettle'), ('taskplacekettleonbase', 'robot'), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 44 tasks [('close', 'robot', 'coldtap'), ('close', 'robot', 'kettle'), ('taskplacekettleonbase', 'robot'), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 45 tasks [('close', 'robot', 'kettle'), ('taskplacekettleonbase', 'robot'), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 46 tasks [('taskplacekettleonbase', 'robot'), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 47 tasks [('taskbringkettletobase', 'robot'), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 48 tasks [('access', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 49 tasks [('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 50 tasks [('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 51 tasks [('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 52 tasks [('taskboilwater', 'robot'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 53 tasks [('goto', 'robot', <Location.kettlebase: 0>), ('turnonkettlebase', 'robot', 'kettle'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+****Robot is already at location kettlebase - so goto does nothing!****
+depth 54 tasks [('turnonkettlebase', 'robot', 'kettle'), ('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 55 tasks [('taskgetcleancup', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 56 tasks [('taskcheckcupdirty', 'robot'), ('taskfinalizetea', 'robot', 'teabag')]
+teacup2 is clean!
+depth 57 tasks [('goto', 'robot', <Location.shelf6: 11>), ('access', 'robot', 'teacup2'), ('grasp', 'robot', 'teacup2'), ('taskplacecup', 'robot', 'teacup2'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 58 tasks [('access', 'robot', 'teacup2'), ('grasp', 'robot', 'teacup2'), ('taskplacecup', 'robot', 'teacup2'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 59 tasks [('grasp', 'robot', 'teacup2'), ('taskplacecup', 'robot', 'teacup2'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 60 tasks [('taskplacecup', 'robot', 'teacup2'), ('taskfinalizetea', 'robot', 'teabag')]
+depth 61 tasks [('goto', 'robot', <Location.countertop: 3>), ('place', 'robot', 'teacup2', <Location.countertop: 3>), ('taskfinalizetea', 'robot', 'teabag')]
+depth 62 tasks [('place', 'robot', 'teacup2', <Location.countertop: 3>), ('taskfinalizetea', 'robot', 'teabag')]
+depth 63 tasks [('taskfinalizetea', 'robot', 'teabag')]
+depth 64 tasks [('taskprepareteabag', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 65 tasks [('taskgetteabag', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 66 tasks [('goto', 'robot', <Location.inteacup: 5>), ('access', 'robot', 'teabag'), ('grasp', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 67 tasks [('access', 'robot', 'teabag'), ('grasp', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 68 tasks [('grasp', 'robot', 'teabag'), ('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 69 tasks [('taskplacebagincup', 'robot', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 70 tasks [('goto', 'robot', <Location.countertop: 3>), ('access', 'robot', 'teacup2'), ('placein', 'robot', 'teacup2', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 71 tasks [('access', 'robot', 'teacup2'), ('placein', 'robot', 'teacup2', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 72 tasks [('placein', 'robot', 'teacup2', 'teabag'), ('taskbrewtea', 'robot', 'teabag')]
+depth 73 tasks [('taskbrewtea', 'robot', 'teabag')]
+depth 74 tasks [('goto', 'robot', <Location.kettlebase: 0>), ('access', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 75 tasks [('access', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 76 tasks [('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 77 tasks [('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 78 tasks [('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+****pourintocup failed, kettle not open****
+depth 74 tasks [('goto', 'robot', <Location.kettlebase: 0>), ('access', 'robot', 'kettle'), ('openitem', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 75 tasks [('access', 'robot', 'kettle'), ('openitem', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 76 tasks [('openitem', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 77 tasks [('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 78 tasks [('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 79 tasks [('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 80 tasks [('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 81 tasks [('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')]
+depth 82 tasks [('close', 'robot', 'kettle')]
+depth 83 tasks []
+** result = [('goto', 'robot', 'kettlebase'), ('goto', 'robot', <Location.kettlebase: 0>), ('turnonkettlebase', 'robot', 'kettle'), ('goto', 'robot', <Location.shelf7: 12>), ('access', 'robot', 'teacup1'), ('grasp', 'robot', 'teacup1'), ('goto', 'robot', <Location.countertop: 3>), ('place', 'robot', 'teacup1', <Location.countertop: 3>), ('goto', 'robot', <Location.countertop: 3>), ('access', 'robot', 'teabag'), ('grasp', 'robot', 'teabag'), ('goto', 'robot', <Location.countertop: 3>), ('access', 'robot', 'teacup1'), ('placein', 'robot', 'teacup1', 'teabag'), ('goto', 'robot', <Location.kettlebase: 0>), ('access', 'robot', 'kettle'), ('openitem', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup1'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle'), ('goto', 'robot', <Location.kettlebase: 0>), ('access', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.kitchensink: 2>), ('place', 'robot', 'kettle', <Location.kitchensink: 2>), ('openitem', 'robot', 'kettle'), ('opencoldtap', 'robot'), ('close', 'robot', 'coldtap'), ('close', 'robot', 'kettle'), ('access', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('goto', 'robot', <Location.kettlebase: 0>), ('turnonkettlebase', 'robot', 'kettle'), ('goto', 'robot', <Location.shelf6: 11>), ('access', 'robot', 'teacup2'), ('grasp', 'robot', 'teacup2'), ('goto', 'robot', <Location.countertop: 3>), ('place', 'robot', 'teacup2', <Location.countertop: 3>), ('goto', 'robot', <Location.inteacup: 5>), ('access', 'robot', 'teabag'), ('grasp', 'robot', 'teabag'), ('goto', 'robot', <Location.countertop: 3>), ('access', 'robot', 'teacup2'), ('placein', 'robot', 'teacup2', 'teabag'), ('goto', 'robot', <Location.kettlebase: 0>), ('access', 'robot', 'kettle'), ('openitem', 'robot', 'kettle'), ('grasp', 'robot', 'kettle'), ('goto', 'robot', <Location.countertop: 3>), ('pourintocup', 'robot', 'teacup2'), ('goto', 'robot', <Location.kettlebase: 0>), ('place', 'robot', 'kettle', <Location.kettlebase: 0>), ('close', 'robot', 'kettle')] 
+

@@ -17,13 +17,13 @@ There are several other enum libraries for python, make sure you have this one a
 In most cases, we use enumerations instead of strings to make it more robust against errors, especially against typos.
 
 ### Running TeaAtHome
-From Python console run the specific test case:
+From Python console, navigate to the root directory of your local copy of the repository and run the test cases:
 
     execfile('test1.py')
 	execfile('test2.py')
 	execfile('test3.py')
 
-The log file for each test is saved to the "logs" directory within your local repository.
+The log files are saved to the "logs" directory within your local repository.
 
 ---
 
